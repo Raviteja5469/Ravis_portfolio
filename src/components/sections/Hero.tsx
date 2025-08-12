@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Download, ChevronDown } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 // import StarField from '../StarField';
-import Raviteja_resume from '../../assets/Raviteja_Resume.pdf';
+import Raviteja_resume from '../../assets/Raviteja_resume.pdf';
 
 const Hero = () => {
   const [currentTaglineIndex, setCurrentTaglineIndex] = useState(0);
