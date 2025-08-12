@@ -1,179 +1,102 @@
 import React, { useEffect, useState } from 'react';
-import { Download, ArrowDown, Code, Rocket } from 'lucide-react';
+import { Download, ChevronDown } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
-import StarField from '../StarField';
+// import StarField from '../StarField';
+import Raviteja_resume from '../../assets/Raviteja_Resume.pdf';
 
-const Hero: React.FC = () => {
-  const [codeText, setCodeText] = useState('');
-  const [currentTechIndex, setCurrentTechIndex] = useState(0);
+const Hero = () => {
+  const [currentTaglineIndex, setCurrentTaglineIndex] = useState(0);
   const { isDark } = useTheme();
 
-  const technologies = ['MERN Stack', 'AI/ML', 'Cybersecurity', 'React Native'];
-  const fullText = `> Initializing Ravi_Teja.exe
-> Loading technologies: ${technologies[currentTechIndex]}
-> Status: Ready to innovate_`;
+  const taglines = [
+    "Crafting Scalable Solutions with Code, Curiosity, and Precision.",
+    "Building the Future with Innovative Tech and Passion.",
+    "From Code to Creation: Where Ideas Meet Execution.",
+    "Exploring AI, Securing Cyberspace, Developing Dreams.",
+    "Innovating with MERN, AI, and Cybersecurity Expertise."
+  ];
 
   useEffect(() => {
-    let index = 0;
-    const typeText = () => {
-      if (index < fullText.length) {
-        setCodeText(fullText.slice(0, index + 1));
-        index++;
-        setTimeout(typeText, 50);
-      }
-    };
-
     const interval = setInterval(() => {
-      setCurrentTechIndex((prev) => (prev + 1) % technologies.length);
-      index = 0;
-      setCodeText('');
-      setTimeout(typeText, 500);
-    }, 4000);
+      setCurrentTaglineIndex((prev) => (prev + 1) % taglines.length);
+    }, 4000); // Cycle every 4 seconds
 
-    typeText();
     return () => clearInterval(interval);
-  }, [currentTechIndex, fullText]);
+  }, [taglines.length]);
 
   const scrollToProjects = () => {
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const downloadResume = () => {
-    // In a real implementation, this would download the actual resume
     const link = document.createElement('a');
-    link.href = '#'; // Replace with actual resume URL
-    link.download = 'Ravi_Teja_Resume.pdf';
+    link.href = Raviteja_resume;
+    link.download = 'Raviteja_Resume.pdf';
     link.click();
   };
 
   return (
-    <section id="hero" className={`min-h-screen flex items-center justify-center relative overflow-hidden ${
-      isDark ? 'bg-black' : 'bg-light-gradient'
-    }`}>
-      {/* Animated Background */}
-      <div className="absolute inset-0">
+    <section id="hero" className={`min-h-screen flex items-center justify-center relative overflow-hidden ${isDark ? 'bg-black' : 'bg-white'}`}>
+      {/* <div className="absolute inset-0">
         <StarField interactive className="opacity-80" />
-        {/* Floating Geometric Shapes */}
-        <div className="absolute top-20 left-10 w-20 h-20 border border-neon-cyan/30 rotate-45 animate-spin" style={{ animationDuration: '20s' }} />
-        <div className="absolute bottom-20 right-10 w-16 h-16 border border-neon-magenta/30 rounded-full animate-bounce" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 right-20 w-12 h-12 bg-gradient-to-r from-neon-cyan/20 to-neon-magenta/20 rotate-12 animate-pulse" />
-      </div>
+      </div> */}
 
-      <div className="container mx-auto px-4 z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Content */}
-          <div className="text-center lg:text-left space-y-8">
-            {/* Name and Title */}
-            <div className="space-y-4 opacity-0 animate-[slideInUp_0.8s_ease-out_0.2s_forwards]">
-              <h1 className={`text-4xl md:text-6xl lg:text-7xl font-bold ${
-                isDark ? 'text-white' : 'text-cosmic-dark'
-              }`}>
-                <span className="block font-mono text-neon-cyan">Ravi</span>
-                <span className="block font-mono text-neon-magenta">Teja</span>
-              </h1>
-              <div className={`text-lg md:text-xl lg:text-2xl font-medium space-y-2 ${
-                isDark ? 'text-gray-300' : 'text-cosmic-blue'
-              }`}>
-                <p>Full Stack Developer</p>
-                <p className="text-neon-cyan">AI Enthusiast</p>
-                <p className="text-neon-magenta">Cybersecurity Explorer</p>
-              </div>
-            </div>
-
-            {/* One-liner */}
-            <p className={`text-lg md:text-xl opacity-0 animate-[slideInLeft_0.8s_ease-out_0.6s_forwards] ${
-              isDark ? 'text-gray-400' : 'text-cosmic-blue'
-            }`}>
-              "Crafting Scalable Solutions with Code, Curiosity, and Cosmic Precision."
-            </p>
-
-
-
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start opacity-0 animate-[slideInUp_0.8s_ease-out_1.2s_forwards]">
-              <button
-                onClick={scrollToProjects}
-                className="group relative px-8 py-4 bg-gradient-to-r from-neon-cyan to-neon-magenta rounded-full font-semibold text-cosmic-dark transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,255,255,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan"
-                aria-label="View my projects"
-              >
-                <span className="flex items-center space-x-2">
-                  <Rocket size={20} />
-                  <span>Explore Projects</span>
-                </span>
-              </button>
-              
-              <button
-                onClick={downloadResume}
-                className={`group px-8 py-4 border-2 rounded-full font-semibold transition-all duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 ${
-                  isDark
-                    ? 'border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-cosmic-dark focus-visible:ring-neon-cyan'
-                    : 'border-cosmic-indigo text-cosmic-indigo hover:bg-cosmic-indigo hover:text-white focus-visible:ring-cosmic-indigo'
-                }`}
-                aria-label="Download resume PDF"
-              >
-                <span className="flex items-center space-x-2">
-                  <Download size={20} />
-                  <span>Download Resume</span>
-                </span>
-              </button>
+      <div className="container mx-auto px-4 z-10 text-center">
+        <div className="space-y-6">
+          {/* Name and Title with Effects */}
+          <div className="space-y-3">
+            <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold ${isDark ? 'text-white' : 'text-black'} font-orbitron glitch hover:animate-glitch`}>
+             Seguri Ravi Teja
+            </h1>
+            <div className={`text-base md:text-lg font-medium space-y-1 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+              <p className="opacity-0 animate-[fadeIn_0.5s_ease-out_0.5s_forwards]">MERN Stack Developer</p>
+              {/* <p className="opacity-0 animate-[fadeIn_0.5s_ease-out_1s_forwards]">AI Enthusiast</p>
+              <p className="opacity-0 animate-[fadeIn_0.5s_ease-out_1.5s_forwards]">Cybersecurity Explorer</p> */}
             </div>
           </div>
 
-          {/* Illustration */}
-          <div className="flex justify-center lg:justify-end opacity-0 animate-[slideInRight_0.8s_ease-out_0.8s_forwards]">
-            <div className="relative">
-              {/* Floating Astronaut */}
-              <div className="relative z-10 animate-float">
-                <div className={`w-80 h-80 rounded-full flex items-center justify-center ${
-                  isDark ? 'bg-gradient-to-br from-cosmic-blue/20 to-cosmic-purple/20' : 'bg-gradient-to-br from-cosmic-indigo/20 to-neon-purple/20'
-                } backdrop-blur-sm border border-white/10`}>
-                  <div className="text-center space-y-4">
-                    <Code size={80} className="text-neon-cyan mx-auto animate-pulse" />
-                    <div className="space-y-2">
-                      <div className="flex justify-center space-x-1">
-                        <div className="w-2 h-2 bg-neon-cyan rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
-                        <div className="w-2 h-2 bg-neon-magenta rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                        <div className="w-2 h-2 bg-neon-green rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                      </div>
-                      <p className={`text-sm font-mono ${isDark ? 'text-gray-400' : 'text-cosmic-blue'}`}>
-                        Neural networks loading...
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          {/* Enhanced Vanish Tagline with Underline Animation */}
+          <div key={currentTaglineIndex} className="relative inline-block">
+            <p
+              className={`text-base md:text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'} font-mono opacity-0 animate-[dissolveEffect_4s_ease-in-out_forwards]`}
+            >
+              {taglines[currentTaglineIndex]}
+            </p>
+            <div
+              className={`absolute -bottom-1 left-0 right-0 mx-auto h-0.5 bg-blue-600 transform scale-x-0 origin-center animate-[underlineGrow_4s_ease-in-out_forwards]`}
+            ></div>
+          </div>
 
-              {/* Orbiting Elements */}
-              <div className="absolute inset-0 animate-spin" style={{ animationDuration: '30s' }}>
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4">
-                  <div className="w-6 h-6 bg-neon-cyan rounded-full shadow-[0_0_20px_rgba(0,255,255,0.5)]"></div>
-                </div>
-                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-4">
-                  <div className="w-4 h-4 bg-neon-magenta rounded-full shadow-[0_0_20px_rgba(255,0,255,0.5)]"></div>
-                </div>
-                <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4">
-                  <div className="w-5 h-5 bg-neon-green rounded-full shadow-[0_0_20px_rgba(0,255,0,0.5)]"></div>
-                </div>
-                <div className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4">
-                  <div className="w-3 h-3 bg-neon-purple rounded-full shadow-[0_0_20px_rgba(139,92,246,0.5)]"></div>
-                </div>
-              </div>
-            </div>
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 justify-center opacity-0 animate-[slideInUp_0.8s_ease-out_0.6s_forwards]">
+            <button
+              onClick={scrollToProjects}
+              className="px-5 py-2 rounded-lg font-semibold transition-all duration-300 hover:scale-105 bg-blue-600 text-white hover:bg-blue-700"
+              aria-label="View my projects"
+            >
+              Explore Projects
+            </button>
+            <button
+              onClick={downloadResume}
+              className={`px-5 py-2 border-2 rounded-lg font-semibold transition-all duration-300 hover:scale-105 border-blue-600 ${isDark ? 'text-blue-600 hover:bg-blue-600 hover:text-white' : 'text-blue-600 hover:bg-blue-600 hover:text-white'}`}
+              aria-label="Download resume PDF"
+            >
+              <span className="flex items-center space-x-2">
+                <Download size={18} />
+                <span>Resume</span>
+              </span>
+            </button>
           </div>
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 animate-[fadeIn_1s_ease-out_2s_forwards]">
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 opacity-0 animate-[fadeIn_1s_ease-out_1.5s_forwards]">
           <button
-            onClick={() => document.getElementById('stats')?.scrollIntoView({ behavior: 'smooth' })}
-            className={`flex flex-col items-center space-y-2 transition-all duration-300 hover:scale-110 ${
-              isDark ? 'text-gray-400 hover:text-neon-cyan' : 'text-cosmic-blue hover:text-cosmic-indigo'
-            }`}
+            onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+            className={`${isDark ? 'text-gray-400 hover:text-blue-500' : 'text-gray-600 hover:text-blue-500'} transition-all duration-300`}
             aria-label="Scroll to next section"
           >
-            <span className="text-sm font-mono">Scroll Down</span>
-            <ArrowDown size={20} className="animate-bounce" />
+            <ChevronDown size={36} className="animate-bounce" />
           </button>
         </div>
       </div>
@@ -181,48 +104,140 @@ const Hero: React.FC = () => {
   );
 };
 
-// Add custom animations to the global styles
+// Custom styles
 const style = document.createElement('style');
 style.textContent = `
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+  .font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .glitch {
+    position: relative;
+  }
+
+  .glitch::before,
+  .glitch::after {
+    content: attr(class);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    clip: rect(0, 0, 0, 0);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .glitch::before {
+    text-shadow: -2px 0 red;
+    left: 2px;
+  }
+
+  .glitch::after {
+    text-shadow: 2px 0 blue;
+    left: -2px;
+  }
+
+  .hover\\:animate-glitch:hover {
+    animation: glitch-hover 0.5s infinite;
+  }
+
+  .hover\\:animate-glitch:hover::before,
+  .hover\\:animate-glitch:hover::after {
+    opacity: 1;
+    animation: glitch-layer 0.5s infinite;
+  }
+
+  @keyframes glitch-hover {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+  }
+
+  @keyframes glitch-layer {
+    0% { clip: rect(42px, 9999px, 44px, 0); }
+    5% { clip: rect(12px, 9999px, 59px, 0); }
+    10% { clip: rect(48px, 9999px, 29px, 0); }
+    15% { clip: rect(42px, 9999px, 73px, 0); }
+    20% { clip: rect(63px, 9999px, 27px, 0); }
+    25% { clip: rect(34px, 9999px, 55px, 0); }
+    30% { clip: rect(86px, 9999px, 73px, 0); }
+    35% { clip: rect(20px, 9999px, 20px, 0); }
+    40% { clip: rect(26px, 9999px, 60px, 0); }
+    45% { clip: rect(25px, 9999px, 66px, 0); }
+    50% { clip: rect(18px, 9999px, 98px, 0); }
+    55% { clip: rect(6px, 9999px, 99px, 0); }
+    60% { clip: rect(46px, 9999px, 4px, 0); }
+    65% { clip: rect(21px, 9999px, 52px, 0); }
+    70% { clip: rect(7px, 9999px, 70px, 0); }
+    75% { clip: rect(69px, 9999px, 11px, 0); }
+    80% { clip: rect(66px, 9999px, 17px, 0); }
+    85% { clip: rect(17px, 9999px, 24px, 0); }
+    90% { clip: rect(71px, 9999px, 88px, 0); }
+    95% { clip: rect(68px, 9999px, 41px, 0); }
+    100% { clip: rect(47px, 9999px, 69px, 0); }
+  }
+
   @keyframes slideInUp {
     from {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
-  
-  @keyframes slideInLeft {
-    from {
-      opacity: 0;
-      transform: translateX(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  
+
   @keyframes fadeIn {
     from {
       opacity: 0;
     }
     to {
       opacity: 1;
+    }
+  }
+
+  @keyframes dissolveEffect {
+    0% {
+      opacity: 0;
+      filter: blur(5px);
+      transform: scale(0.95);
+    }
+    20% {
+      opacity: 1;
+      filter: blur(0);
+      transform: scale(1);
+    }
+    80% {
+      opacity: 1;
+      filter: blur(0);
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      filter: blur(5px);
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes underlineGrow {
+    0% {
+      transform: scaleX(0);
+    }
+    20% {
+      transform: scaleX(1);
+    }
+    80% {
+      transform: scaleX(1);
+    }
+    100% {
+      transform: scaleX(0);
     }
   }
 `;

@@ -1,51 +1,33 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Rocket, Brain, Users, Clock } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Rocket, Brain, Users, Clock, Code } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
+import { motion } from 'framer-motion';
 
 interface StatItem {
   icon: React.ReactNode;
   value: number;
   label: string;
   suffix: string;
-  color: string;
 }
 
-const Stats: React.FC = () => {
-  const [counters, setCounters] = useState([0, 0, 0, 0]);
+const Stats = () => {
+  const [counters, setCounters] = useState([0, 0, 0, 0, 0]);
   const [hasAnimated, setHasAnimated] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const { isDark } = useTheme();
 
   const stats: StatItem[] = [
-    {
-      icon: <Rocket size={32} />,
-      value: 12,
-      label: 'Projects Completed',
-      suffix: '+',
-      color: 'text-neon-cyan'
-    },
-    {
-      icon: <Brain size={32} />,
-      value: 8,
-      label: 'Technologies Mastered',
-      suffix: '+',
-      color: 'text-neon-magenta'
-    },
-    {
-      icon: <Users size={32} />,
-      value: 4,
-      label: 'Internships/Collaborations',
-      suffix: '',
-      color: 'text-neon-green'
-    },
-    {
-      icon: <Clock size={32} />,
-      value: 100,
-      label: 'On-Time Delivery',
-      suffix: '%',
-      color: 'text-neon-purple'
-    }
+    { icon: <Rocket size={24} />, value: 12, label: 'Projects Completed', suffix: '+' },
+    { icon: <Brain size={24} />, value: 8, label: 'Technologies Mastered', suffix: '+' },
+    { icon: <Users size={24} />, value: 4, label: 'Internships /Collaborations', suffix: '' },
+    { icon: <Clock size={24} />, value: 100, label: 'On-Time Delivery', suffix: '%' },
+    // { icon: <Code size={24} />, value: 2, label: 'Years of Experience', suffix: '+' }
   ];
+
+  const sliceColors = isDark
+    ? ['#93C5FD', '#60A5FA', '#3B82F6', '#1D4ED8', '#2563EB']
+    : ['#BFDBFE', '#93C5FD', '#60A5FA', '#2563EB', '#1E40AF'];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -57,11 +39,7 @@ const Stats: React.FC = () => {
       },
       { threshold: 0.3 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, [hasAnimated]);
 
@@ -84,130 +62,187 @@ const Stats: React.FC = () => {
     });
   };
 
+  const total = stats.reduce((sum, stat) => sum + stat.value, 0);
+  let startAngle = 0;
+  const radius = 100;
+  const centerX = 150;
+  const centerY = 150;
+
   return (
     <section
       ref={sectionRef}
       id="stats"
-      className={`py-20 relative overflow-hidden ${
-        isDark ? 'bg-cosmic-dark' : 'bg-cosmic-gray'
-      }`}
+      className={`py-12 ${isDark ? 'bg-black' : 'bg-white'}`}
     >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-20 w-32 h-32 border border-neon-cyan rounded-full animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-24 h-24 border border-neon-magenta rotate-45 animate-spin" style={{ animationDuration: '15s' }}></div>
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-gradient-to-r from-neon-cyan/20 to-neon-magenta/20 rounded-full animate-bounce"></div>
-      </div>
-
-      <div className="container mx-auto px-4 z-10 relative">
-        {/* Section Title */}
-        <div className="text-center mb-16">
-          <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${
-            isDark ? 'text-white' : 'text-cosmic-dark'
-          }`}>
-            <span className="bg-gradient-to-r from-neon-cyan to-neon-magenta bg-clip-text text-transparent">
-              Stats at a Glance
-            </span>
-          </h2>
-          <p className={`text-xl ${
-            isDark ? 'text-gray-400' : 'text-cosmic-blue'
-          }`}>
-            Numbers that showcase my journey in tech
-          </p>
-        </div>
-
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="group relative"
+      <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto">
+          {/* Title */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
+            className="text-center mb-10"
+          >
+            <h2
+              className={`text-4xl md:text-5xl font-bold font-orbitron ${
+                isDark ? 'text-white' : 'text-black'
+              }`}
             >
-              {/* Glassmorphism Card */}
-              <div className={`relative p-8 rounded-2xl backdrop-blur-md border transition-all duration-500 hover:scale-105 ${
-                isDark
-                  ? 'bg-white/10 border-white/20 hover:bg-white/20'
-                  : 'bg-white/50 border-gray-200 hover:bg-white/70'
-              } hover:shadow-2xl`}>
-                {/* Neon Border Animation */}
-                <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
-                  stat.color === 'text-neon-cyan' ? 'shadow-[0_0_30px_rgba(0,255,255,0.3)]' :
-                  stat.color === 'text-neon-magenta' ? 'shadow-[0_0_30px_rgba(255,0,255,0.3)]' :
-                  stat.color === 'text-neon-green' ? 'shadow-[0_0_30px_rgba(0,255,0,0.3)]' :
-                  'shadow-[0_0_30px_rgba(139,92,246,0.3)]'
-                }`}></div>
+              My Stats
+            </h2>
+            <div className="w-20 h-1 bg-blue-600 rounded-full mx-auto mt-4"></div>
+            <p
+              className={`text-base md:text-lg mt-3 ${
+                isDark ? 'text-gray-200' : 'text-gray-600'
+              }`}
+            >
+              Numbers that showcase my journey in tech
+            </p>
+          </motion.div>
 
-                <div className="text-center space-y-4 relative z-10">
-                  {/* Icon */}
-                  <div className={`flex justify-center ${stat.color} group-hover:scale-110 transition-transform duration-300`}>
-                    {stat.icon}
-                  </div>
+          {/* Chart & Legend */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.4 }}
+            className="flex flex-col md:flex-row items-center justify-center gap-20"
+          >
+            {/* Pie Chart with Percentage Labels */}
+            <div className="relative" style={{ width: 'min(80vw, 300px)', height: 'min(80vw, 300px)' }}>
+              <svg width="120%" height="120%" viewBox="0 0 300 300" role="img" aria-label="Pie chart of portfolio stats" style={{ left: '200px', top: '-10%' }}>
+                {stats.map((stat, index) => {
+                  const value = counters[index];
+                  const percentage = ((value / total) * 100).toFixed(1);
+                  const angle = (value / total) * 360;
+                  const endAngle = startAngle + (hasAnimated ? angle : 0);
+                  const largeArcFlag = angle > 180 ? 1 : 0;
 
-                  {/* Counter */}
-                  <div className="space-y-2">
-                    <div className={`text-4xl md:text-5xl font-bold font-mono ${
-                      isDark ? 'text-white' : 'text-cosmic-dark'
-                    }`}>
-                      <span className="tabular-nums">
-                        {counters[index]}
-                      </span>
-                      <span className={stat.color}>
-                        {stat.suffix}
-                      </span>
-                    </div>
+                  const x1 =
+                    centerX +
+                    radius * Math.cos(((startAngle - 90) * Math.PI) / 180);
+                  const y1 =
+                    centerY +
+                    radius * Math.sin(((startAngle - 90) * Math.PI) / 180);
+                  const x2 =
+                    centerX +
+                    radius * Math.cos(((endAngle - 90) * Math.PI) / 180);
+                  const y2 =
+                    centerY +
+                    radius * Math.sin(((endAngle - 90) * Math.PI) / 180);
 
-                    {/* Label */}
-                    <p className={`text-sm font-medium uppercase tracking-wider ${
-                      isDark ? 'text-gray-400' : 'text-cosmic-blue'
-                    }`}>
+                  // Position labels outside for small slices (<10%)
+                  const isSmallSlice = parseFloat(percentage) < 10;
+                  const labelRadius = isSmallSlice ? radius * 1.3 : radius * 0.7;
+                  const midAngle = startAngle + angle / 2;
+                  const labelX =
+                    centerX +
+                    labelRadius * Math.cos(((midAngle - 90) * Math.PI) / 180);
+                  const labelY =
+                    centerY +
+                    labelRadius * Math.sin(((midAngle - 90) * Math.PI) / 180);
+
+                  startAngle = endAngle;
+
+                  return (
+                    <g key={index}>
+                      <motion.path
+                        d={`M${centerX},${centerY} L${x1},${y1} A${radius},${radius} 0 ${largeArcFlag} 1 ${x2},${y2} Z`}
+                        fill={sliceColors[index]}
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1, fill: hoveredIndex === index ? (isDark ? '#BFDBFE' : '#DBEAFE') : sliceColors[index] }}
+                        transition={{
+                          duration: 2,
+                          ease: 'easeOut',
+                          delay: 0.6 + index * 0.1
+                        }}
+                        onMouseEnter={() => setHoveredIndex(index)}
+                        onMouseLeave={() => setHoveredIndex(null)}
+                        role="region"
+                        aria-label={`${stat.label}: ${percentage}%`}
+                      />
+                      <motion.text
+                        x={labelX}
+                        y={labelY}
+                        textAnchor="middle"
+                        fill={isDark ? '#ffffff' : '#000000'}
+                        fontSize={isSmallSlice ? '10' : '12'}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{
+                          duration: 1,
+                          ease: 'easeOut',
+                          delay: 0.8 + index * 0.1
+                        }}
+                      >
+                        {percentage}%
+                      </motion.text>
+                    </g>
+                  );
+                })}
+              </svg>
+            </div>
+
+            {/* Legend */}
+            <div className="flex flex-wrap justify-center gap-4">
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.8,
+                    ease: 'easeOut',
+                    delay: 0.8 + index * 0.1
+                  }}
+                  className={`flex items-center space-x-3 w-[180px] relative group ${hoveredIndex === index ? 'bg-blue-600/10' : ''}`}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  role="region"
+                  aria-label={`${stat.label}: ${counters[index]}${stat.suffix}`}
+                >
+                  <div
+                    className="w-4 h-4 rounded-full"
+                    style={{ backgroundColor: sliceColors[index] }}
+                  ></div>
+                  <div className="flex-1">
+                    <p
+                      className={`text-sm font-medium font-montserrat ${
+                        isDark ? 'text-gray-200' : 'text-gray-600'
+                      }`}
+                    >
                       {stat.label}
                     </p>
-                  </div>
-
-                  {/* Progress Bar Animation */}
-                  <div className="w-full h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                    <div
-                      className={`h-full transition-all duration-2000 ease-out ${
-                        stat.color === 'text-neon-cyan' ? 'bg-neon-cyan' :
-                        stat.color === 'text-neon-magenta' ? 'bg-neon-magenta' :
-                        stat.color === 'text-neon-green' ? 'bg-neon-green' :
-                        'bg-neon-purple'
+                    <p
+                      className={`text-lg font-bold font-montserrat ${
+                        isDark ? 'text-white' : 'text-black'
                       }`}
-                      style={{
-                        width: hasAnimated ? '100%' : '0%',
-                        transitionDelay: `${index * 200}ms`
-                      }}
+                    >
+                      {counters[index]}
+                      {stat.suffix}
+                    </p>
+                    <div
+                      className={`absolute -bottom-1 left-0 right-0 h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300`}
                     ></div>
                   </div>
-                </div>
-              </div>
-
-              {/* Floating Elements */}
-              <div className={`absolute -top-2 -right-2 w-4 h-4 rounded-full animate-ping ${
-                stat.color === 'text-neon-cyan' ? 'bg-neon-cyan' :
-                stat.color === 'text-neon-magenta' ? 'bg-neon-magenta' :
-                stat.color === 'text-neon-green' ? 'bg-neon-green' :
-                'bg-neon-purple'
-              } opacity-75`}></div>
+                  <div className="flex-shrink-0">{stat.icon}</div>
+                </motion.div>
+              ))}
             </div>
-          ))}
-        </div>
-
-        {/* Bottom Decorative Element */}
-        <div className="flex justify-center mt-16">
-          <div className="flex space-x-2">
-            {[...Array(5)].map((_, i) => (
-              <div
-                key={i}
-                className="w-2 h-2 rounded-full bg-gradient-to-r from-neon-cyan to-neon-magenta animate-pulse"
-                style={{ animationDelay: `${i * 0.2}s` }}
-              ></div>
-            ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
   );
 };
+
+// Custom styles
+const style = document.createElement('style');
+style.textContent = `
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+`;
+document.head.appendChild(style);
 
 export default Stats;

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
+import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface BlogPost {
   id: number;
@@ -13,7 +13,7 @@ interface BlogPost {
   slug: string;
 }
 
-const Blog: React.FC = () => {
+const Blog = () => {
   const { isDark } = useTheme();
 
   const blogPosts: BlogPost[] = [
@@ -50,185 +50,135 @@ const Blog: React.FC = () => {
   ];
 
   return (
-    <section id="blog" className={`py-20 relative overflow-hidden ${
-      isDark ? 'bg-cosmic-dark' : 'bg-gray-50'
-    }`}>
-      {/* Background Elements */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 right-20 w-40 h-40 border border-neon-cyan rounded-full animate-pulse"></div>
-        <div className="absolute bottom-20 left-20 w-32 h-32 border border-neon-magenta rotate-45 animate-spin" style={{ animationDuration: '20s' }}></div>
-        <div className="absolute top-1/3 left-1/3 w-24 h-24 bg-gradient-to-r from-neon-green/20 to-neon-purple/20 rounded-full animate-bounce"></div>
-      </div>
+    <section id="blog" className={`py-20 ${isDark ? 'bg-black' : 'bg-white'}`}>
+      <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, transform: 'translateY(20px)' }}
+            animate={{ opacity: 1, transform: 'translateY(0)' }}
+            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
+            className="text-center mb-16"
+          >
+            <h2 className={`text-4xl md:text-6xl font-bold font-orbitron ${isDark ? 'text-white' : 'text-black'}`}>
+              My Blog
+            </h2>
+            <div className="w-24 h-1 bg-blue-600 rounded-full mx-auto mt-6"></div>
+            <p className={`text-lg max-w-2xl mx-auto mt-4 font-montserrat ${isDark ? 'text-gray-200' : 'text-gray-600'}`}>
+              Sharing insights, tutorials, and lessons learned from my development journey
+            </p>
+          </motion.div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${
-            isDark ? 'text-white' : 'text-cosmic-dark'
-          }`}>
-            Latest <span className="bg-gradient-to-r from-neon-cyan to-neon-magenta bg-clip-text text-transparent">Blog Posts</span>
-          </h2>
-          <p className={`text-xl max-w-2xl mx-auto ${
-            isDark ? 'text-gray-400' : 'text-cosmic-blue'
-          }`}>
-            Sharing insights, tutorials, and lessons learned from my development journey
-          </p>
-        </div>
-
-        {/* Blog Posts Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {blogPosts.map((post, index) => (
-            <article
-              key={post.id}
-              className={`group relative overflow-hidden rounded-2xl backdrop-blur-md border transition-all duration-500 hover:scale-105 ${
-                isDark
-                  ? 'bg-white/10 border-white/20 hover:bg-white/20'
-                  : 'bg-white/70 border-gray-200 hover:bg-white hover:shadow-xl'
-              }`}
-              style={{ 
-                opacity: 0,
-                animation: `slideInRight 0.8s ease-out ${index * 0.2}s forwards`
-              }}
-            >
-              {/* Featured Image */}
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                
+          {/* Blog Posts Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {blogPosts.map((post, index) => (
+              <motion.article
+                key={post.id}
+                initial={{ opacity: 0, transform: 'translateY(20px)' }}
+                animate={{ opacity: 1, transform: 'translateY(0)' }}
+                transition={{ duration: 0.8, ease: 'easeOut', delay: 0.4 + index * 0.1 }}
+                className={`group relative rounded-xl border ${isDark ? 'bg-gray-800/50 border-gray-700 hover:bg-gray-700/50' : 'bg-gray-100/50 border-gray-300 hover:bg-gray-200/50'} shadow-md hover:scale-105 transition-all duration-300`}
+                aria-describedby={`post-description-${post.id}`}
+              >
                 {/* Category Badge */}
-                <div className="absolute top-4 left-4 bg-gradient-to-r from-neon-cyan to-neon-magenta text-cosmic-dark px-3 py-1 rounded-full text-sm font-semibold">
+                <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-sm font-semibold font-montserrat ${isDark ? 'bg-blue-600 text-white' : 'bg-blue-600 text-white'}`}>
                   {post.category}
                 </div>
-              </div>
 
-              {/* Content */}
-              <div className="p-6 space-y-4">
-                {/* Meta Information */}
-                <div className={`flex items-center space-x-4 text-sm ${
-                  isDark ? 'text-gray-400' : 'text-cosmic-blue'
-                }`}>
-                  <div className="flex items-center space-x-1">
-                    <Calendar size={14} />
-                    <span>{new Date(post.date).toLocaleDateString('en-US', { 
-                      year: 'numeric', 
-                      month: 'short', 
-                      day: 'numeric' 
-                    })}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Clock size={14} />
-                    <span>{post.readTime}</span>
-                  </div>
+                {/* Featured Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={post.image}
+                    alt={`Featured image for ${post.title}`}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
+                  />
                 </div>
 
-                {/* Title */}
-                <h3 className={`text-xl font-bold leading-tight group-hover:text-neon-cyan transition-colors duration-300 ${
-                  isDark ? 'text-white' : 'text-cosmic-dark'
-                }`}>
-                  {post.title}
-                </h3>
+                {/* Content */}
+                <div className="p-6 space-y-4">
+                  {/* Meta Information */}
+                  <div className={`flex items-center space-x-4 text-sm font-montserrat ${isDark ? 'text-gray-200' : 'text-gray-600'}`}>
+                    <div className="flex items-center space-x-1">
+                      <Calendar size={14} aria-label="Publication date" />
+                      <span>{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Clock size={14} aria-label="Read time" />
+                      <span>{post.readTime}</span>
+                    </div>
+                  </div>
 
-                {/* Excerpt */}
-                <p className={`text-sm line-clamp-4 leading-relaxed ${
-                  isDark ? 'text-gray-400' : 'text-cosmic-blue'
-                }`}>
-                  {post.excerpt}
-                </p>
+                  {/* Title */}
+                  <h3 className={`text-xl font-bold font-orbitron ${isDark ? 'text-white group-hover:text-blue-400' : 'text-black group-hover:text-blue-600'} transition-colors duration-300`}>
+                    {post.title}
+                  </h3>
 
-                {/* Read More Button */}
-                <div className="pt-4 border-t border-gray-200 dark:border-white/10">
-                  <button className={`group/btn flex items-center space-x-2 text-sm font-medium transition-all duration-300 ${
-                    isDark ? 'text-neon-cyan hover:text-white' : 'text-cosmic-indigo hover:text-cosmic-dark'
-                  }`}>
-                    <span>Read More</span>
-                    <ArrowRight size={16} className="transition-transform duration-300 group-hover/btn:translate-x-1" />
-                  </button>
+                  {/* Excerpt */}
+                  <p
+                    id={`post-description-${post.id}`}
+                    className={`text-sm line-clamp-4 font-montserrat ${isDark ? 'text-gray-200' : 'text-gray-600'}`}
+                  >
+                    {post.excerpt}
+                  </p>
+
+                  {/* Read More Button */}
+                  <div className={`pt-4 border-t ${isDark ? 'border-gray-700' : 'border-gray-300'}`}>
+                    <a
+                      href={`/blog/${post.slug}`}
+                      className={`group/btn flex items-center space-x-2 text-sm font-medium font-montserrat transition-all duration-300 ${isDark ? 'text-blue-400 hover:text-white' : 'text-blue-600 hover:text-black'}`}
+                      aria-label={`Read more about ${post.title}`}
+                    >
+                      <span>Read More</span>
+                      <ArrowRight size={16} className="transition-transform duration-300 group-hover/btn:translate-x-1" aria-hidden="true" />
+                    </a>
+                  </div>
                 </div>
-              </div>
-
-              {/* Hover Glow Effect */}
-              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none shadow-[0_0_50px_rgba(0,255,255,0.1)]"></div>
-            </article>
-          ))}
-        </div>
-
-        {/* Call to Action */}
-        <div className="text-center">
-          <div className="space-y-6">
-            <p className={`text-lg ${
-              isDark ? 'text-gray-300' : 'text-cosmic-blue'
-            }`}>
-              Want to read more? Check out my full blog for in-depth tutorials and insights.
-            </p>
-            <button className={`group px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 ${
-              isDark
-                ? 'bg-gradient-to-r from-neon-cyan/20 to-neon-magenta/20 text-white border border-neon-cyan hover:bg-gradient-to-r hover:from-neon-cyan/40 hover:to-neon-magenta/40 focus-visible:ring-neon-cyan'
-                : 'bg-gradient-to-r from-cosmic-indigo/20 to-neon-purple/20 text-cosmic-dark border border-cosmic-indigo hover:bg-gradient-to-r hover:from-cosmic-indigo/40 hover:to-neon-purple/40 focus-visible:ring-cosmic-indigo'
-            }`}>
-              <span className="flex items-center space-x-2">
-                <span>View All Posts</span>
-                <ArrowRight size={20} className="transition-transform duration-300 group-hover:translate-x-1" />
-              </span>
-            </button>
+              </motion.article>
+            ))}
           </div>
 
-          {/* Newsletter Signup */}
-          <div className={`mt-12 p-8 rounded-2xl backdrop-blur-md border ${
-            isDark
-              ? 'bg-white/10 border-white/20'
-              : 'bg-white/70 border-gray-200'
-          }`}>
-            <h3 className={`text-2xl font-bold mb-4 ${
-              isDark ? 'text-white' : 'text-cosmic-dark'
-            }`}>
-              Stay Updated
-            </h3>
-            <p className={`mb-6 ${
-              isDark ? 'text-gray-400' : 'text-cosmic-blue'
-            }`}>
-              Subscribe to my newsletter for the latest posts on web development, AI/ML, and cybersecurity.
+          {/* Call to Action */}
+          <motion.div
+            initial={{ opacity: 0, transform: 'translateY(20px)' }}
+            animate={{ opacity: 1, transform: 'translateY(0)' }}
+            transition={{ duration: 0.8, ease: 'easeOut', delay: 1 }}
+            className="text-center space-y-6"
+          >
+            <p className={`text-lg font-montserrat ${isDark ? 'text-gray-200' : 'text-gray-600'}`}>
+              Dive into this content, you’ll definitely discover some great insights
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className={`flex-1 px-4 py-3 rounded-lg border transition-colors duration-300 focus:outline-none focus:ring-2 ${
-                  isDark
-                    ? 'bg-white/10 border-white/20 text-white placeholder-gray-400 focus:ring-neon-cyan focus:border-neon-cyan'
-                    : 'bg-white border-gray-300 text-cosmic-dark placeholder-gray-500 focus:ring-cosmic-indigo focus:border-cosmic-indigo'
-                }`}
-                aria-label="Email address"
-              />
-              <button className="px-6 py-3 bg-gradient-to-r from-neon-cyan to-neon-magenta text-cosmic-dark font-semibold rounded-lg transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-neon-cyan">
-                Subscribe
-              </button>
-            </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
   );
 };
 
-// Add animation keyframe
+// Add animation and font styles
 const style = document.createElement('style');
 style.textContent = `
-  @keyframes slideInRight {
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;500;700&display=swap');
+
+  .font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  @keyframes slideInUp {
     from {
       opacity: 0;
-      transform: translateX(30px);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
-      transform: translateX(0);
+      transform: translateY(0);
     }
   }
-  
+
   .line-clamp-4 {
     display: -webkit-box;
     -webkit-line-clamp: 4;

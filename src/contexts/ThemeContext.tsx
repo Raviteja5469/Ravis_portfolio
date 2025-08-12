@@ -22,7 +22,11 @@ interface ThemeProviderProps {
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('theme');
-    return saved ? JSON.parse(saved) : true;
+    if (saved === null) return true; // default to dark
+    if (saved === 'true' || saved === 'false') return JSON.parse(saved);
+    if (saved === 'light') return false;
+    if (saved === 'dark') return true;
+    return true;
   });
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navigation from './components/Navigation';
-import CustomCursor from './components/CustomCursor';
+// import CustomCursor from './components/CustomCursor';
 import Preloader from './components/Preloader';
 import Hero from './components/sections/Hero';
 import Stats from './components/sections/Stats';
@@ -9,7 +9,7 @@ import Skills from './components/sections/Skills';
 import Projects from './components/sections/Projects';
 import Blog from './components/sections/Blog';
 import Experience from './components/sections/Experience';
-import Testimonials from './components/sections/Testimonials';
+// import Testimonials from './components/sections/Testimonials';
 import Contact from './components/sections/Contact';
 import Footer from './components/sections/Footer';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -30,17 +30,17 @@ function App() {
     <ThemeProvider>
       <div className="min-h-screen font-inter">
         {loading && <Preloader />}
-        <CustomCursor />
+        {/* <CustomCursor /> */}
         <Navigation />
         <main>
           <Hero />
-          <Stats />
-          <About />
+          <About /> 
           <Skills />
           <Projects />
+          <Stats />
           <Blog />
           <Experience />
-          <Testimonials />
+          {/* <Testimonials /> */}
           <Contact />
         </main>
         <Footer />

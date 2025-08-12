@@ -9,10 +9,10 @@ const Navigation: React.FC = () => {
 
   const sections = [
     { id: 'hero', label: 'Home' },
-    { id: 'stats', label: 'Stats' },
     { id: 'about', label: 'About' },
     { id: 'skills', label: 'Skills' },
     { id: 'projects', label: 'Projects' },
+    { id: 'stats', label: 'Stats' },
     { id: 'blog', label: 'Blog' },
     { id: 'experience', label: 'Experience' },
     { id: 'testimonials', label: 'Testimonials' },

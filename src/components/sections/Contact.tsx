@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Send, Mail, Linkedin, Github, MapPin, Phone, CheckCircle, AlertCircle } from 'lucide-react';
+import { useState } from 'react';
+import { Send, Mail, Linkedin, Github, MapPin, CheckCircle, AlertCircle } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
+import { motion } from 'framer-motion';
 
 interface FormData {
   name: string;
@@ -14,7 +15,7 @@ interface FormStatus {
   message: string;
 }
 
-const Contact: React.FC = () => {
+const Contact = () => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -29,30 +30,30 @@ const Contact: React.FC = () => {
     {
       icon: <Mail size={20} />,
       label: 'Email',
-      value: 'ravi.teja@example.com',
-      href: 'mailto:ravi.teja@example.com',
-      color: 'text-neon-cyan'
+      value: 'ravitejseguria@gmail.com',
+      href: 'mailto:ravitejseguria@gmail.com',
+      color: 'text-blue-600'
     },
     {
       icon: <Linkedin size={20} />,
       label: 'LinkedIn',
-      value: '/in/ravi-teja-dev',
-      href: 'https://linkedin.com/in/ravi-teja-dev',
-      color: 'text-blue-500'
+      value: '/in/seguri-raviteja',
+      href: 'https://www.linkedin.com/in/seguri-raviteja-61190a253/',
+      color: 'text-blue-600'
     },
     {
       icon: <Github size={20} />,
       label: 'GitHub',
       value: '@raviteja-dev',
-      href: 'https://github.com/raviteja-dev',
-      color: 'text-gray-600 dark:text-gray-300'
+      href: 'https://github.com/Raviteja5469',
+      color: 'text-blue-600'
     },
     {
       icon: <MapPin size={20} />,
       label: 'Location',
       value: 'India',
       href: null,
-      color: 'text-neon-magenta'
+      color: 'text-blue-600'
     }
   ];
 
@@ -62,7 +63,6 @@ const Contact: React.FC = () => {
       ...prev,
       [name]: value
     }));
-    // Clear form status when user starts typing
     if (formStatus.type) {
       setFormStatus({ type: null, message: '' });
     }
@@ -96,7 +96,6 @@ const Contact: React.FC = () => {
     setIsSubmitting(true);
     setFormStatus({ type: null, message: '' });
 
-    // Simulate form submission
     try {
       await new Promise(resolve => setTimeout(resolve, 2000));
       
@@ -105,7 +104,6 @@ const Contact: React.FC = () => {
         message: 'Thanks for reaching out! I\'ll get back to you within 24 hours.'
       });
       
-      // Reset form
       setFormData({
         name: '',
         email: '',
@@ -123,67 +121,57 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className={`py-20 relative overflow-hidden ${
-      isDark ? 'bg-cosmic-midnight' : 'bg-white'
-    }`}>
-      {/* Background Elements */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 right-20 w-40 h-40 border border-neon-cyan rounded-full animate-pulse"></div>
-        <div className="absolute bottom-20 left-20 w-32 h-32 border border-neon-magenta rotate-45 animate-spin" style={{ animationDuration: '15s' }}></div>
-        <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-gradient-to-r from-neon-green/20 to-neon-purple/20 rounded-full animate-bounce"></div>
-      </div>
+    <section id="contact" className={`py-20 ${isDark ? 'bg-black' : 'bg-white'}`}>
+      <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, transform: 'translateY(20px)' }}
+            animate={{ opacity: 1, transform: 'translateY(0)' }}
+            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
+            className="text-center mb-16"
+          >
+            <h2 className={`text-4xl md:text-6xl font-bold font-orbitron ${isDark ? 'text-white' : 'text-black'}`}>
+              Get In Touch
+            </h2>
+            <div className="w-24 h-1 bg-blue-600 rounded-full mx-auto mt-6"></div>
+            <p className={`text-lg mt-4 font-montserrat ${isDark ? 'text-gray-200' : 'text-gray-600'}`}>
+              Have a project in mind? Let's discuss how we can bring your ideas to life
+            </p>
+          </motion.div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${
-            isDark ? 'text-white' : 'text-cosmic-dark'
-          }`}>
-            Get In <span className="bg-gradient-to-r from-neon-cyan to-neon-magenta bg-clip-text text-transparent">Touch</span>
-          </h2>
-          <p className={`text-xl max-w-2xl mx-auto ${
-            isDark ? 'text-gray-400' : 'text-cosmic-blue'
-          }`}>
-            Have a project in mind? Let's discuss how we can bring your ideas to life
-          </p>
-        </div>
-
-        <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Information */}
-            <div className="space-y-8">
+            <motion.div
+              initial={{ opacity: 0, transform: 'translateY(20px)' }}
+              animate={{ opacity: 1, transform: 'translateY(0)' }}
+              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.4 }}
+              className="space-y-8"
+            >
               <div>
-                <h3 className={`text-2xl font-bold mb-4 ${
-                  isDark ? 'text-white' : 'text-cosmic-dark'
-                }`}>
+                <h3 className={`text-2xl font-bold font-orbitron ${isDark ? 'text-white' : 'text-black'}`}>
                   Let's Connect
                 </h3>
-                <p className={`text-lg leading-relaxed ${
-                  isDark ? 'text-gray-300' : 'text-cosmic-blue'
-                }`}>
-                  I'm always excited to discuss new opportunities, innovative projects, and 
-                  potential collaborations. Whether you need a full-stack developer, AI/ML consultant, 
-                  or cybersecurity expertise, I'm here to help bring your vision to reality.
+                <p className={`text-lg leading-relaxed font-montserrat ${isDark ? 'text-gray-200' : 'text-gray-600'}`}>
+                  I'm always excited to discuss new opportunities, innovative projects, and potential collaborations. Whether you need a full-stack developer, AI/ML consultant, or cybersecurity expertise, I'm here to help bring your vision to reality.
                 </p>
               </div>
 
               {/* Contact Details */}
               <div className="space-y-4">
                 {contactInfo.map((item, index) => (
-                  <div key={index} className={`flex items-center space-x-4 p-4 rounded-xl backdrop-blur-md border transition-all duration-300 hover:scale-105 ${
-                    isDark
-                      ? 'bg-white/10 border-white/20 hover:bg-white/20'
-                      : 'bg-gray-50/70 border-gray-200 hover:bg-gray-100'
-                  }`}>
-                    <div className={`p-3 rounded-lg ${item.color} bg-current/10`}>
-                      <div className={item.color}>
-                        {item.icon}
-                      </div>
+                  <motion.div
+                    key={index}
+                    whileHover={{ rotateY: 5, rotateX: 5, scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                    className={`flex items-center space-x-4 p-4 rounded-xl border ${isDark ? 'bg-gray-800/50 border-gray-700' : 'bg-gray-100/50 border-gray-300'} shadow-md hover:shadow-lg transition-all duration-300`}
+                    style={{ perspective: '1000px' }}
+                  >
+                    <div className={`p-3 rounded-lg ${item.color} bg-blue-600/10`}>
+                      {item.icon}
                     </div>
                     <div className="flex-1">
-                      <p className={`font-medium ${
-                        isDark ? 'text-gray-400' : 'text-cosmic-blue'
-                      }`}>
+                      <p className={`font-medium font-montserrat ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                         {item.label}
                       </p>
                       {item.href ? (
@@ -191,82 +179,41 @@ const Contact: React.FC = () => {
                           href={item.href}
                           target={item.href.startsWith('http') ? '_blank' : undefined}
                           rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                          className={`text-lg font-semibold transition-colors duration-300 hover:underline ${
-                            isDark ? 'text-white' : 'text-cosmic-dark'
-                          }`}
+                          className={`text-lg font-semibold font-montserrat ${isDark ? 'text-white' : 'text-black'} transition-colors duration-300 hover:text-blue-600`}
+                          aria-label={`${item.label} link`}
                         >
                           {item.value}
                         </a>
                       ) : (
-                        <p className={`text-lg font-semibold ${
-                          isDark ? 'text-white' : 'text-cosmic-dark'
-                        }`}>
+                        <p className={`text-lg font-semibold font-montserrat ${isDark ? 'text-white' : 'text-black'}`}>
                           {item.value}
                         </p>
                       )}
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-
-              {/* Social Media Links */}
-              <div>
-                <h4 className={`text-lg font-semibold mb-4 ${
-                  isDark ? 'text-white' : 'text-cosmic-dark'
-                }`}>
-                  Follow Me
-                </h4>
-                <div className="flex space-x-4">
-                  {[
-                    { icon: <Linkedin size={24} />, href: '#', color: 'hover:text-blue-500' },
-                    { icon: <Github size={24} />, href: '#', color: 'hover:text-gray-600 dark:hover:text-gray-300' },
-                    { icon: <Mail size={24} />, href: '#', color: 'hover:text-neon-cyan' }
-                  ].map((social, index) => (
-                    <a
-                      key={index}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`p-3 rounded-full backdrop-blur-md border transition-all duration-300 hover:scale-110 ${
-                        isDark
-                          ? 'bg-white/10 border-white/20 text-white hover:bg-white/20'
-                          : 'bg-gray-100/70 border-gray-200 text-cosmic-dark hover:bg-gray-200'
-                      } ${social.color}`}
-                      aria-label={`Social media link ${index + 1}`}
-                    >
-                      {social.icon}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
+            </motion.div>
 
             {/* Contact Form */}
-            <div className={`p-8 rounded-2xl backdrop-blur-md border ${
-              isDark
-                ? 'bg-white/10 border-white/20'
-                : 'bg-white/70 border-gray-200'
-            }`}>
+            <motion.div
+              initial={{ opacity: 0, transform: 'translateY(20px)' }}
+              animate={{ opacity: 1, transform: 'translateY(0)' }}
+              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.6 }}
+              className={`p-8 rounded-xl border ${isDark ? 'bg-gray-800/50 border-gray-700' : 'bg-gray-100/50 border-gray-300'} shadow-md`}
+            >
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Form Status */}
                 {formStatus.type && (
-                  <div className={`p-4 rounded-lg flex items-center space-x-3 ${
-                    formStatus.type === 'success'
-                      ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-                      : 'bg-red-500/20 text-red-400 border border-red-500/30'
-                  }`}>
-                    {formStatus.type === 'success' ? (
-                      <CheckCircle size={20} />
-                    ) : (
-                      <AlertCircle size={20} />
-                    )}
-                    <span className="text-sm">{formStatus.message}</span>
+                  <div className={`p-4 rounded-lg flex items-center space-x-3 font-montserrat ${formStatus.type === 'success' ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}`}>
+                    {formStatus.type === 'success' ? <CheckCircle size={20} /> : <AlertCircle size={20} />}
+                    <span className="text-sm" aria-live="polite">{formStatus.message}</span>
                   </div>
                 )}
 
                 {/* Name and Email Row */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="floating-label">
+                  <div className="relative">
                     <input
                       type="text"
                       id="name"
@@ -275,20 +222,14 @@ const Contact: React.FC = () => {
                       onChange={handleChange}
                       placeholder=" "
                       required
-                      className={`w-full px-4 py-3 rounded-lg border transition-colors duration-300 focus:outline-none focus:ring-2 ${
-                        isDark
-                          ? 'bg-white/10 border-white/20 text-white placeholder-gray-400 focus:ring-neon-cyan focus:border-neon-cyan'
-                          : 'bg-white border-gray-300 text-cosmic-dark placeholder-gray-500 focus:ring-cosmic-indigo focus:border-cosmic-indigo'
-                      }`}
+                      className={`w-full px-4 py-3 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 font-montserrat ${isDark ? 'bg-gray-800/50 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-600' : 'bg-gray-100/50 border-gray-300 text-black placeholder-gray-600 focus:ring-blue-600'}`}
                     />
-                    <label htmlFor="name" className={`absolute left-4 top-3 transition-all duration-300 pointer-events-none ${
-                      isDark ? 'text-gray-400' : 'text-cosmic-blue'
-                    }`}>
+                    <label htmlFor="name" className={`absolute left-4 top-3 transition-all duration-300 pointer-events-none font-montserrat ${isDark ? 'text-gray-400' : 'text-gray-600'} ${formData.name ? 'text-xs -top-2 text-blue-600' : ''}`}>
                       Your Name *
                     </label>
                   </div>
 
-                  <div className="floating-label">
+                  <div className="relative">
                     <input
                       type="email"
                       id="email"
@@ -297,22 +238,16 @@ const Contact: React.FC = () => {
                       onChange={handleChange}
                       placeholder=" "
                       required
-                      className={`w-full px-4 py-3 rounded-lg border transition-colors duration-300 focus:outline-none focus:ring-2 ${
-                        isDark
-                          ? 'bg-white/10 border-white/20 text-white placeholder-gray-400 focus:ring-neon-cyan focus:border-neon-cyan'
-                          : 'bg-white border-gray-300 text-cosmic-dark placeholder-gray-500 focus:ring-cosmic-indigo focus:border-cosmic-indigo'
-                      }`}
+                      className={`w-full px-4 py-3 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 font-montserrat ${isDark ? 'bg-gray-800/50 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-600' : 'bg-gray-100/50 border-gray-300 text-black placeholder-gray-600 focus:ring-blue-600'}`}
                     />
-                    <label htmlFor="email" className={`absolute left-4 top-3 transition-all duration-300 pointer-events-none ${
-                      isDark ? 'text-gray-400' : 'text-cosmic-blue'
-                    }`}>
+                    <label htmlFor="email" className={`absolute left-4 top-3 transition-all duration-300 pointer-events-none font-montserrat ${isDark ? 'text-gray-400' : 'text-gray-600'} ${formData.email ? 'text-xs -top-2 text-blue-600' : ''}`}>
                       Email Address *
                     </label>
                   </div>
                 </div>
 
                 {/* Subject */}
-                <div className="floating-label">
+                <div className="relative">
                   <input
                     type="text"
                     id="subject"
@@ -320,21 +255,15 @@ const Contact: React.FC = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder=" "
-                    className={`w-full px-4 py-3 rounded-lg border transition-colors duration-300 focus:outline-none focus:ring-2 ${
-                      isDark
-                        ? 'bg-white/10 border-white/20 text-white placeholder-gray-400 focus:ring-neon-cyan focus:border-neon-cyan'
-                        : 'bg-white border-gray-300 text-cosmic-dark placeholder-gray-500 focus:ring-cosmic-indigo focus:border-cosmic-indigo'
-                    }`}
+                    className={`w-full px-4 py-3 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 font-montserrat ${isDark ? 'bg-gray-800/50 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-600' : 'bg-gray-100/50 border-gray-300 text-black placeholder-gray-600 focus:ring-blue-600'}`}
                   />
-                  <label htmlFor="subject" className={`absolute left-4 top-3 transition-all duration-300 pointer-events-none ${
-                    isDark ? 'text-gray-400' : 'text-cosmic-blue'
-                  }`}>
+                  <label htmlFor="subject" className={`absolute left-4 top-3 transition-all duration-300 pointer-events-none font-montserrat ${isDark ? 'text-gray-400' : 'text-gray-600'} ${formData.subject ? 'text-xs -top-2 text-blue-600' : ''}`}>
                     Subject
                   </label>
                 </div>
 
                 {/* Message */}
-                <div className="floating-label">
+                <div className="relative">
                   <textarea
                     id="message"
                     name="message"
@@ -343,50 +272,71 @@ const Contact: React.FC = () => {
                     rows={6}
                     placeholder=" "
                     required
-                    className={`w-full px-4 py-3 rounded-lg border transition-colors duration-300 focus:outline-none focus:ring-2 resize-vertical ${
-                      isDark
-                        ? 'bg-white/10 border-white/20 text-white placeholder-gray-400 focus:ring-neon-cyan focus:border-neon-cyan'
-                        : 'bg-white border-gray-300 text-cosmic-dark placeholder-gray-500 focus:ring-cosmic-indigo focus:border-cosmic-indigo'
-                    }`}
+                    className={`w-full px-4 py-3 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 resize-vertical font-montserrat ${isDark ? 'bg-gray-800/50 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-600' : 'bg-gray-100/50 border-gray-300 text-black placeholder-gray-600 focus:ring-blue-600'}`}
                   />
-                  <label htmlFor="message" className={`absolute left-4 top-3 transition-all duration-300 pointer-events-none ${
-                    isDark ? 'text-gray-400' : 'text-cosmic-blue'
-                  }`}>
+                  <label htmlFor="message" className={`absolute left-4 top-3 transition-all duration-300 pointer-events-none font-montserrat ${isDark ? 'text-gray-400' : 'text-gray-600'} ${formData.message ? 'text-xs -top-2 text-blue-600' : ''}`}>
                     Your Message *
                   </label>
                 </div>
 
                 {/* Submit Button */}
-                <button
+                <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full py-4 rounded-lg font-semibold transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 ${
-                    isDark
-                      ? 'bg-gradient-to-r from-neon-cyan to-neon-magenta text-cosmic-dark hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] focus:ring-neon-cyan'
-                      : 'bg-gradient-to-r from-cosmic-indigo to-neon-purple text-white hover:shadow-[0_0_30px_rgba(99,102,241,0.3)] focus:ring-cosmic-indigo'
-                  }`}
+                  whileHover={{ scale: 1.05, boxShadow: '0 10px 20px rgba(0,0,0,0.2)' }}
+                  transition={{ duration: 0.3 }}
+                  className={`w-full py-4 rounded-lg font-semibold font-montserrat transition-all duration-300 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed ${isDark ? 'bg-blue-600 text-white border border-blue-700 hover:bg-blue-700 focus:ring-blue-600' : 'bg-blue-600 text-white border border-blue-700 hover:bg-blue-700 focus:ring-blue-600'}`}
+                  aria-label="Submit contact form"
                 >
                   <span className="flex items-center justify-center space-x-2">
                     {isSubmitting ? (
                       <>
-                        <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                         <span>Sending...</span>
                       </>
                     ) : (
                       <>
-                        <Send size={20} />
+                        <motion.div animate={{ y: [0, -5, 0], transition: { duration: 1.5, repeat: Infinity } }}>
+                          <Send size={20} />
+                        </motion.div>
                         <span>Send Message</span>
                       </>
                     )}
                   </span>
-                </button>
+                </motion.button>
               </form>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
     </section>
   );
 };
+
+// Add font and animation styles
+const style = document.createElement('style');
+style.textContent = `
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;500;700&display=swap');
+
+  .font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
+document.head.appendChild(style);
 
 export default Contact;
