@@ -13,8 +13,8 @@ const Navigation: React.FC = () => {
     { id: 'skills', label: 'Skills' },
     { id: 'projects', label: 'Projects' },
     { id: 'stats', label: 'Stats' },
-    { id: 'blog', label: 'Blog' },
     { id: 'experience', label: 'Experience' },
+    { id: 'blog', label: 'Blog' },
     { id: 'testimonials', label: 'Testimonials' },
     { id: 'contact', label: 'Contact' }
   ];

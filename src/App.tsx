@@ -38,8 +38,8 @@ function App() {
           <Skills />
           <Projects />
           <Stats />
-          <Blog />
           <Experience />
+          <Blog />
           {/* <Testimonials /> */}
           <Contact />
         </main>
