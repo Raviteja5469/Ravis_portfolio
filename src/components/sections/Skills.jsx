@@ -7,39 +7,46 @@ const Skills = () => {
   const { isDark } = useTheme();
   const [animatedLevels, setAnimatedLevels] = useState(new Array(12).fill(0));
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [rocketPosition, setRocketPosition] = useState({ x: 100, y: 400 });
+  const [rocketPosition, setRocketPosition] = useState({ x: 400, y: 400 });
   const [rocketRotation, setRocketRotation] = useState(0);
   const [smokes, setSmokes] = useState([]);
   const { ref, inView } = useInView({ threshold: 0.3 });
 
   const skills = [
-    { name: 'React', level: 95, category: 'Frontend', icon: '⚛️', color: '#61DAFB' },
+    { name: 'React', level: 75, category: 'Frontend', icon: '⚛️', color: '#61DAFB' },
+    { name: 'CSS3', level: 85, category: 'Frontend', icon: '🎨', color: '#264DE4' },
     { name: 'Node.js', level: 90, category: 'Backend', icon: '🟢', color: '#68A063' },
     { name: 'MongoDB', level: 85, category: 'Database', icon: '🍃', color: '#47A248' },
+    { name: 'SQL', level: 55, category: 'Database', icon: '🛢️', color: '#47A248' },
     { name: 'Express', level: 88, category: 'Backend', icon: '🚀', color: '#000000' },
-    { name: 'Python', level: 92, category: 'Programming', icon: '🐍', color: '#3776AB' },
+    { name: 'Python', level: 75, category: 'Programming', icon: '🐍', color: '#3776AB' },
+    { name: 'Java', level: 52, category: 'Programming', icon: '☕', color: '#007396' },
+    { name: 'JavaScript', level: 88, category: 'Programming', icon: '🟡', color: '#F7DF1E' },
     { name: 'TensorFlow', level: 80, category: 'AI/ML', icon: '🧠', color: '#FF6F00' },
     { name: 'PyTorch', level: 75, category: 'AI/ML', icon: '🔥', color: '#EE4C2C' },
     { name: 'OpenCV', level: 85, category: 'AI/ML', icon: '👁️', color: '#5C3EE8' },
     { name: 'Tailwind CSS', level: 93, category: 'Frontend', icon: '💨', color: '#38B2AC' },
-    { name: 'GitHub', level: 88, category: 'Tools', icon: '🐙', color: '#181717' },
+    { name: 'GitHub', level: 88, category: 'Tools', icon: '🐙', color: '#007396' },
     { name: 'REST APIs', level: 90, category: 'Backend', icon: '🔗', color: '#6B7280' },
-    { name: 'React Native', level: 82, category: 'Mobile', icon: '📱', color: '#61DAFB' }
+    { name: 'React Native', level: 82, category: 'App', icon: '📱', color: '#61DAFB' }
   ];
 
   const categories = [...new Set(skills.map(skill => skill.category))];
 
-  const categoryPositions = {
-    Frontend: { x: 200, y: 150 },
-    Backend: { x: 600, y: 150 },
-    Database: { x: 400, y: 250 },
-    Programming: { x: 200, y: 400 },
-    'AI/ML': { x: 200, y: 600 },
-    Tools: { x: 400, y: 500 },
-    Mobile: { x: 400, y: 650 }
-  };
+  // Calculate positions in a circle
+  const radius = 200;
+  const centerX = 400;
+  const centerY = 400;
+  const categoryPositions = {};
+  categories.forEach((category, index) => {
+    const angle = (index / categories.length) * 2 * Math.PI;
+    categoryPositions[category] = {
+      x: centerX + radius * Math.cos(angle),
+      y: centerY + radius * Math.sin(angle)
+    };
+  });
 
-  const defaultRocketPosition = { x: 60, y: 400 };
+  const defaultRocketPosition = { x: centerX, y: centerY };
 
   useEffect(() => {
     if (inView && !selectedCategory) {
@@ -109,6 +116,12 @@ const Skills = () => {
     return `${(level / 100) * circumference} ${circumference}`;
   };
 
+  // Calculate points for the connecting lines (closed polygon)
+  const polygonPoints = [...categories, categories[0]].map(category => {
+    const pos = categoryPositions[category];
+    return `${pos.x},${pos.y}`;
+  }).join(' ');
+
   return (
     <section
       ref={ref}
@@ -135,8 +148,17 @@ const Skills = () => {
           {/* Skill Map */}
           <div className="relative" style={{ width: 'min(90vw, 600px)', height: 'min(90vw, 600px)' }}>
             <svg width="100%" height="100%" viewBox="0 0 800 800" role="img" aria-label="Interactive skill map">
+              {/* Connecting lines (closed polygon) */}
+              <polyline
+                points={polygonPoints}
+                fill="none"
+                stroke={isDark ? '#38B2AC' : '#BBBBBB'}
+                strokeWidth="2"
+                strokeDasharray="5,5"
+              />
               {categories.map((category) => {
                 const pos = categoryPositions[category];
+                const categoryColor = skills.find(skill => skill.category === category)?.color || '#61DAFB'; // Default to teal
                 return (
                   <g
                     key={category}
@@ -150,7 +172,7 @@ const Skills = () => {
                       cy={pos.y}
                       r="60"
                       fill={isDark ? '#111111' : '#F0F0F0'}
-                      stroke={isDark ? '#d4d4d4' : '#CCCCCC'}
+                      stroke={categoryColor}
                       strokeWidth="2"
                       whileHover={{ scale: 1.05, fill: isDark ? '#1F2937' : '#E5E7EB' }}
                       transition={{ duration: 0.3 }}

@@ -1,8 +1,18 @@
-import { useState } from 'react';
-import { Send, Mail, Linkedin, Github, MapPin, CheckCircle, AlertCircle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import {
+  Send,
+  Mail,
+  Linkedin,
+  Github,
+  MapPin,
+  CheckCircle,
+  AlertCircle,
+} from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 
+// Interfaces
 interface FormData {
   name: string;
   email: string;
@@ -20,11 +30,18 @@ const Contact = () => {
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
   });
-  const [formStatus, setFormStatus] = useState<FormStatus>({ type: null, message: '' });
+  const [formStatus, setFormStatus] = useState<FormStatus>({
+    type: null,
+    message: '',
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { isDark } = useTheme();
+
+  useEffect(() => {
+    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY!);
+  }, []);
 
   const contactInfo = [
     {
@@ -32,36 +49,38 @@ const Contact = () => {
       label: 'Email',
       value: 'ravitejseguria@gmail.com',
       href: 'mailto:ravitejseguria@gmail.com',
-      color: 'text-blue-600'
+      color: 'text-blue-600',
     },
     {
       icon: <Linkedin size={20} />,
       label: 'LinkedIn',
       value: '/in/seguri-raviteja',
       href: 'https://www.linkedin.com/in/seguri-raviteja-61190a253/',
-      color: 'text-blue-600'
+      color: 'text-blue-600',
     },
     {
       icon: <Github size={20} />,
       label: 'GitHub',
       value: '@raviteja-dev',
       href: 'https://github.com/Raviteja5469',
-      color: 'text-blue-600'
+      color: 'text-blue-600',
     },
     {
       icon: <MapPin size={20} />,
       label: 'Location',
       value: 'India',
       href: null,
-      color: 'text-blue-600'
-    }
+      color: 'text-blue-600',
+    },
   ];
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
     if (formStatus.type) {
       setFormStatus({ type: null, message: '' });
@@ -78,7 +97,10 @@ const Contact = () => {
       return false;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      setFormStatus({ type: 'error', message: 'Please enter a valid email address' });
+      setFormStatus({
+        type: 'error',
+        message: 'Please enter a valid email address',
+      });
       return false;
     }
     if (!formData.message.trim()) {
@@ -90,30 +112,43 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (!validateForm()) return;
 
     setIsSubmitting(true);
     setFormStatus({ type: null, message: '' });
 
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+    };
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID!,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID!,
+        templateParams
+      );
+
       setFormStatus({
         type: 'success',
-        message: 'Thanks for reaching out! I\'ll get back to you within 24 hours.'
+        message:
+          "Thanks for reaching out! I'll get back to you within 24 hours.",
       });
-      
+
       setFormData({
         name: '',
         email: '',
         subject: '',
-        message: ''
+        message: '',
       });
     } catch (error) {
+      console.error('EmailJS error:', error);
       setFormStatus({
         type: 'error',
-        message: 'Something went wrong. Please try again or reach out via email directly.'
+        message:
+          'Something went wrong. Please try again or reach out via email directly.',
       });
     } finally {
       setIsSubmitting(false);
@@ -220,12 +255,12 @@ const Contact = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder=" "
+                      placeholder="Your Name *"
                       required
                       className={`w-full px-4 py-3 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 font-montserrat ${isDark ? 'bg-gray-800/50 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-600' : 'bg-gray-100/50 border-gray-300 text-black placeholder-gray-600 focus:ring-blue-600'}`}
                     />
                     <label htmlFor="name" className={`absolute left-4 top-3 transition-all duration-300 pointer-events-none font-montserrat ${isDark ? 'text-gray-400' : 'text-gray-600'} ${formData.name ? 'text-xs -top-2 text-blue-600' : ''}`}>
-                      Your Name *
+                      
                     </label>
                   </div>
 
@@ -236,12 +271,12 @@ const Contact = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder=" "
+                      placeholder="Email Address * "
                       required
                       className={`w-full px-4 py-3 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 font-montserrat ${isDark ? 'bg-gray-800/50 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-600' : 'bg-gray-100/50 border-gray-300 text-black placeholder-gray-600 focus:ring-blue-600'}`}
                     />
                     <label htmlFor="email" className={`absolute left-4 top-3 transition-all duration-300 pointer-events-none font-montserrat ${isDark ? 'text-gray-400' : 'text-gray-600'} ${formData.email ? 'text-xs -top-2 text-blue-600' : ''}`}>
-                      Email Address *
+                      
                     </label>
                   </div>
                 </div>
@@ -254,11 +289,11 @@ const Contact = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    placeholder=" "
+                    placeholder="Subject"
                     className={`w-full px-4 py-3 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 font-montserrat ${isDark ? 'bg-gray-800/50 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-600' : 'bg-gray-100/50 border-gray-300 text-black placeholder-gray-600 focus:ring-blue-600'}`}
                   />
                   <label htmlFor="subject" className={`absolute left-4 top-3 transition-all duration-300 pointer-events-none font-montserrat ${isDark ? 'text-gray-400' : 'text-gray-600'} ${formData.subject ? 'text-xs -top-2 text-blue-600' : ''}`}>
-                    Subject
+                    
                   </label>
                 </div>
 
@@ -270,12 +305,12 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     rows={6}
-                    placeholder=" "
+                    placeholder="Your Message * "
                     required
                     className={`w-full px-4 py-3 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 resize-vertical font-montserrat ${isDark ? 'bg-gray-800/50 border-gray-700 text-white placeholder-gray-400 focus:ring-blue-600' : 'bg-gray-100/50 border-gray-300 text-black placeholder-gray-600 focus:ring-blue-600'}`}
                   />
                   <label htmlFor="message" className={`absolute left-4 top-3 transition-all duration-300 pointer-events-none font-montserrat ${isDark ? 'text-gray-400' : 'text-gray-600'} ${formData.message ? 'text-xs -top-2 text-blue-600' : ''}`}>
-                    Your Message *
+                    
                   </label>
                 </div>
 
@@ -313,7 +348,7 @@ const Contact = () => {
   );
 };
 
-// Add font and animation styles
+// Optional: add Google Fonts and style if not already globally available
 const style = document.createElement('style');
 style.textContent = `
   @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;500;700&display=swap');
@@ -324,17 +359,6 @@ style.textContent = `
 
   .font-montserrat {
     font-family: 'Montserrat', sans-serif;
-  }
-
-  @keyframes slideInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 `;
 document.head.appendChild(style);

@@ -262,8 +262,8 @@ const Experience = () => {
                   style={{ perspective: '1000px', left: index % 2 === 0 ? '-150px' : 'auto', right: index % 2 === 0 ? 'auto' : '0' }}
                 >
                   {/* Timeline Dot */}
-                  <div className={`absolute left-4 md:left-1/2 w-4 h-4 rounded-full ${isDark ? 'bg-blue-600' : 'bg-blue-600'} -translate-x-1/2 shadow-md`}
-                  ></div>
+                  {/* <div className={`absolute left-4 md:left-1/2 w-4 h-4 rounded-full ${isDark ? 'bg-blue-600' : 'bg-blue-600'} -translate-x-1/2  shadow-md`}
+                  ></div> */}
 
                   {item.logo && (
                     <div
@@ -289,7 +289,7 @@ const Experience = () => {
           </div>
         </div>
 
-        {/* Bottom CTA */}
+        {/* Bottom CTA
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -300,14 +300,14 @@ const Experience = () => {
             Want to know more about my professional journey?
           </p>
           <a
-            href="/resume.pdf"
+            href="./assets/Raviteja_resume.pdf"
             download
             className={`px-8 py-4 rounded-full font-medium font-montserrat transition-all duration-300 border hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 ${isDark ? 'bg-gray-800 text-gray-200 border-gray-700 hover:bg-gray-700 hover:text-white' : 'bg-gray-100 text-gray-600 border-gray-300 hover:bg-gray-200 hover:text-black'}`}
             aria-label="Download Detailed Resume"
           >
             Download Detailed Resume
           </a>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

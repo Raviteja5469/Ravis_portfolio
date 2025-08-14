@@ -27,19 +27,19 @@ const Projects = () => {
       image: 'https://images.pexels.com/photos/416405/pexels-photo-416405.jpeg?auto=compress&cs=tinysrgb&w=500',
       category: 'Web',
       technologies: ['React', 'Node.js', 'MongoDB', 'Socket.io', 'Express'],
-      liveUrl: '#',
-      githubUrl: '#',
+      liveUrl: 'https://online-auction-frontend.onrender.com/',
+      githubUrl: 'https://github.com/Raviteja5469/Online-Auction-Platform',
       featured: true
     },
     {
       id: 2,
-      title: 'Job Quest - Gamified Portal',
+      title: 'Job Quest - Gamified Portal (on going)',
       description: 'Innovative job portal with gamification elements, coin rewards system, and AI-powered job matching. Enhances user engagement through interactive features.',
       image: 'https://images.pexels.com/photos/3182773/pexels-photo-3182773.jpeg?auto=compress&cs=tinysrgb&w=500',
       category: 'Web',
       technologies: ['React', 'Firebase', 'Material-UI', 'Redux', 'PWA'],
-      liveUrl: '#',
-      githubUrl: '#',
+      liveUrl: 'https://gamified-job-portal.vercel.app/',
+      githubUrl: 'https://github.com/Raviteja5469/gamified-job-portal',
       featured: true
     },
     {
@@ -49,8 +49,8 @@ const Projects = () => {
       image: 'https://images.pexels.com/photos/802221/pexels-photo-802221.jpeg?auto=compress&cs=tinysrgb&w=500',
       category: 'AI',
       technologies: ['Python', 'TensorFlow', 'Streamlit', 'OpenCV', 'NumPy'],
-      liveUrl: '#',
-      githubUrl: '#',
+      liveUrl: 'https://waste-analyzer-novukyc46t6pdd5qrj.streamlit.app/',
+      githubUrl: 'https://github.com/Raviteja5469/CNN-model-waste-classification',
       featured: true
     },
     {
@@ -60,8 +60,8 @@ const Projects = () => {
       image: 'https://images.pexels.com/photos/635499/pexels-photo-635499.jpeg?_gl=1*18wzkws*_ga*MTEzNDIyODIzMy4xNzU0OTI1NDgz*_ga_8JE65Q40S6*czE3NTQ5MjU0ODIkbzEkZzEkdDE3NTQ5MjU1MTMkajI5JGwwJGgw',
       category: 'AI',
       technologies: ['Python', 'PyTorch', 'OpenCV', 'Matplotlib', 'Scikit-learn'],
-      liveUrl: '#',
-      githubUrl: '#',
+      liveUrl: 'https://multiclassanimalclassification-jhpwpmaea4drz9jgxkkojm.streamlit.app/',
+      githubUrl: 'https://github.com/Raviteja5469/Multi_class_animal_classification',
       featured: false
     },
     {
@@ -71,21 +71,21 @@ const Projects = () => {
       image: 'https://images.pexels.com/photos/4050320/pexels-photo-4050320.jpeg?auto=compress&cs=tinysrgb&w=500',
       category: 'Accessibility',
       technologies: ['React Native', 'Firebase', 'Voice API', 'Accessibility APIs'],
-      liveUrl: '#',
-      githubUrl: '#',
+      liveUrl: 'https://github.com/Raviteja5469/Lifease',
+      githubUrl: 'https://github.com/Raviteja5469/Lifease',
       featured: true
     },
-    {
-      id: 6,
-      title: 'Cybersecurity Dashboard',
-      description: 'Real-time security monitoring dashboard with threat detection, vulnerability scanning, and incident response automation for network security.',
-      image: 'https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg?auto=compress&cs=tinysrgb&w=500',
-      category: 'Cybersecurity',
-      technologies: ['Python', 'Flask', 'D3.js', 'PostgreSQL', 'Docker'],
-      liveUrl: '#',
-      githubUrl: '#',
-      featured: false
-    }
+    // {
+    //   id: 6,
+    //   title: 'Cybersecurity Dashboard',
+    //   description: 'Real-time security monitoring dashboard with threat detection, vulnerability scanning, and incident response automation for network security.',
+    //   image: 'https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg?auto=compress&cs=tinysrgb&w=500',
+    //   category: 'Cybersecurity',
+    //   technologies: ['Python', 'Flask', 'D3.js', 'PostgreSQL', 'Docker'],
+    //   liveUrl: '#',
+    //   githubUrl: '#',
+    //   featured: false
+    // }
   ];
 
   const categories = ['All', ...new Set(projects.map(p => p.category))];
