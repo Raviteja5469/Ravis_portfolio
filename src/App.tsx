@@ -10,7 +10,7 @@ import Contact from './components/sections/Contact';
 import Footer from './components/sections/Footer';
 
 function App() {
-  const [intro, setIntro] = useState(true);
+  const [intro, setIntro] = useState(!import.meta.env.SSR);
   const completeIntro = useCallback(() => {
     setIntro(false);
     requestAnimationFrame(() => document.getElementById('main')?.focus({ preventScroll: true }));

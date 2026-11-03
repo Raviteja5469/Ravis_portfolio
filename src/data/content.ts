@@ -7,7 +7,7 @@ import { Accessibility, Code2, Gavel, PawPrint, Recycle, Send, ShoppingBasket, T
 
 import haulbasketShot from '../assets/projects/haulbasket-storefront.webp';
 import pigeonShot from '../assets/projects/pigeon-feed.webp';
-import lifeeaseArt from '../assets/projects/lifeease-app.webp';
+import lifeeaseArt from '../assets/projects/lifeease-app-v2.webp';
 import animalArt from '../assets/projects/animal-preview-v2.webp';
 import auctionArt from '../assets/projects/auction-preview.webp';
 import jobQuestShot from '../assets/projects/job-quest.webp';
@@ -35,7 +35,7 @@ export const profile = {
   languages: ['English', 'Hindi', 'Telugu'],
 };
 
-export const aiTools = ['Claude', 'Codex', 'Muse', 'OpenCode', 'Alis'];
+export const aiTools = ['Claude', 'Codex', 'Muse', 'OpenCode'];
 
 export const about = [
   'I build web and mobile products end to end: React interfaces, Node.js and Express APIs, MongoDB data models, and the authentication and role-based access that tie them together.',
@@ -48,6 +48,7 @@ export const workExperience = [
     id: 'workelate',
     title: 'Full Stack Developer',
     organization: 'Workelate',
+    logo: workelateLogo,
     period: 'Apr 2026 – Present',
     current: true,
     points: [
@@ -61,6 +62,7 @@ export const workExperience = [
     id: 'leadmasters',
     title: 'Software Engineering Intern',
     organization: 'Leadmasters.ai',
+    logo: leadmastersLogo,
     period: 'Feb 2026 – Mar 2026',
     current: false,
     points: [
@@ -77,6 +79,7 @@ export const earlierWork = [
     id: 'blue-planet',
     title: 'Full Stack Developer Intern',
     organization: 'Blue Planet Info Solution',
+    logo: bluePlanetLogo,
     period: 'Apr 2025 – Jun 2025',
     detail:
       'Built a college club management system and shipped core features on the live CJN and SmartCookie platforms.',
@@ -85,6 +88,7 @@ export const earlierWork = [
     id: 'edunet',
     title: 'Full Stack Developer Intern',
     organization: 'Edunet Foundation',
+    logo: edunetLogo,
     period: 'Feb 2025 – Mar 2025',
     detail: 'Owned a real-time auction platform end to end and made its backend APIs 30% faster.',
   },
@@ -92,6 +96,7 @@ export const earlierWork = [
     id: 'motion-cut',
     title: 'Frontend Development Intern',
     organization: 'Motion Cut',
+    logo: motionCutLogo,
     period: 'Nov 2024 – Dec 2024',
     detail: 'Built frontend components with real-time UI updates.',
   },
@@ -137,7 +142,7 @@ export const journey: Project[] = [
     presentation: 'phone',
     date: 'Feb 2025',
     milestone: 'Building for real people',
-    title: 'Lifeease',
+    title: 'LifeEase',
     kind: 'Accessibility app',
     description:
       'A mobile app for blind, deaf and speech-impaired users, with voice, gesture and text modes and an inclusive onboarding flow that adapts to each person.',

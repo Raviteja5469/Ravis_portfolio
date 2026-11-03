@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs><pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0H0V80" fill="none" stroke="#e8e8eb" stroke-width="1"/></pattern></defs>
+  <rect width="1200" height="630" fill="#fafafa"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <g font-family="Arial,Helvetica,sans-serif">
+    <text x="70" y="108" fill="#09090b" font-size="64" font-weight="700" letter-spacing="-6">rs<tspan fill="#2557ff">.</tspan></text>
+    <text x="1128" y="91" text-anchor="end" fill="#52525b" font-size="19">HYDERABAD, INDIA</text>
+    <text x="70" y="265" fill="#09090b" font-size="84" font-weight="700" letter-spacing="-4">Raviteja Seguri</text>
+    <text x="70" y="352" fill="#71717a" font-size="72" font-weight="700" letter-spacing="-3">Full Stack Developer</text>
+    <rect x="70" y="403" width="38" height="4" rx="2" fill="#2557ff"/>
+    <text x="124" y="414" fill="#2557ff" font-size="26">Web. Mobile. AI in the workflow.</text>
+    <path d="M70 505H1130" stroke="#dedee3"/>
+    <text x="70" y="554" fill="#52525b" font-size="23">React · Node.js · React Native · TypeScript</text>
+    <text x="1130" y="554" text-anchor="end" fill="#09090b" font-size="23">Selected work &amp; experience ↗</text>
+  </g>
+</svg>

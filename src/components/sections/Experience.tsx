@@ -28,11 +28,8 @@ const Experience = () => (
             <SpotlightCard as="article" className="p-6 sm:p-8">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div className="flex items-center gap-4">
-                  <span
-                    className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-primary/10 text-lg font-semibold text-primary"
-                    aria-hidden="true"
-                  >
-                    {job.organization.charAt(0)}
+                  <span className={`flex h-14 shrink-0 items-center justify-center rounded-xl border border-line bg-white p-2 ${job.id === 'workelate' ? 'w-24 sm:w-28' : 'w-14'}`}>
+                    <img src={job.logo} alt="" width={112} height={56} className="h-full w-full object-contain" loading="lazy" />
                   </span>
                   <div>
                     <h3 className="text-xl font-semibold tracking-tight text-ink">{job.organization}</h3>
@@ -79,6 +76,9 @@ const Experience = () => (
           <ul className="grid gap-4 md:grid-cols-3">
             {earlierWork.map((job) => (
               <SpotlightCard as="li" key={job.id} className="p-5">
+                <div className="mb-4 flex h-14 w-32 items-center justify-center rounded-xl border border-line bg-white p-2">
+                  <img src={job.logo} alt="" width={128} height={56} className="h-full w-full object-contain" loading="lazy" />
+                </div>
                 <p className="font-sans text-xs tabular-nums text-muted">{job.period}</p>
                 <h3 className="mt-3 font-semibold text-ink">{job.organization}</h3>
                 <p className="text-sm text-soft">{job.title}</p>

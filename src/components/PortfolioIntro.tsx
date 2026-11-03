@@ -26,10 +26,10 @@ export default function PortfolioIntro({ onComplete }: { onComplete: () => void 
       <span className="brand-monogram intro-corner-mark" aria-hidden="true">rs<span>.</span></span>
       <div className="intro-center">
         <p className="intro-byline">Raviteja Seguri / Full Stack Developer</p>
-        <h1 id="intro-title" className="intro-headline">
+        <p id="intro-title" className="intro-headline">
           <span className="intro-word-window"><span>Ideas into</span></span>
           <span className="intro-word-window"><span>interfaces.</span></span>
-        </h1>
+        </p>
         <p className="intro-caption">Thoughtfully built. Ready to explore.</p>
         <div className="intro-track" aria-hidden="true"><span /></div>
       </div>

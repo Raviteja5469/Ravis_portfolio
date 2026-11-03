@@ -1,3 +1,4 @@
+import openaiLogo from '../../assets/tools/openai.svg';
 import { techIcons } from '../../data/icons';
 
 type TechIconProps = {
@@ -17,6 +18,9 @@ const isTooDark = (hex: string) => {
 };
 
 const TechIcon = ({ name, size = 16, colored = false, className = '' }: TechIconProps) => {
+  if (name === 'Codex') {
+    return <img src={openaiLogo} alt="" aria-hidden="true" width={size} height={size} className={`shrink-0 dark:invert ${className}`} />;
+  }
   const icon = techIcons[name];
   if (!icon) return null;
   const fill = colored && !isTooDark(icon.hex) ? `#${icon.hex}` : 'currentColor';

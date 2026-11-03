@@ -17,13 +17,19 @@
     <title>Raviteja Seguri — Full Stack Developer</title>
     <meta
       name="description"
-      content="Raviteja Seguri is a Full Stack Developer at Workelate in Hyderabad, building the Citysense digital out-of-home platform with React, Node.js and MongoDB. Work, projects and resume."
+      content="Raviteja Seguri, Full Stack Developer in Hyderabad. Explore React, Node.js and React Native projects, experience at Workelate, and an AI-assisted workflow."
     />
     <meta name="author" content="Raviteja Seguri" />
     <meta name="theme-color" content="#fafafa" />
     <link rel="canonical" href="https://raviteja5469.github.io/Ravis_portfolio/" />
-    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%rs-icon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="%BASE_URL%rs-icon-48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="%BASE_URL%apple-touch-icon.png" />
+    <link rel="sitemap" type="application/xml" href="%BASE_URL%sitemap.xml" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
 
+    <meta property="og:site_name" content="Raviteja Seguri — Portfolio" />
+    <meta property="og:locale" content="en_IN" />
     <meta property="og:type" content="profile" />
     <meta property="og:url" content="https://raviteja5469.github.io/Ravis_portfolio/" />
     <meta property="og:title" content="Raviteja Seguri — Full Stack Developer" />
@@ -31,29 +37,78 @@
       property="og:description"
       content="Full Stack Developer at Workelate, Hyderabad. Building Citysense with React, Node.js and MongoDB, plus React Native and Python."
     />
-    <meta property="og:image" content="https://raviteja5469.github.io/Ravis_portfolio/og.png" />
+    <meta property="og:image" content="https://raviteja5469.github.io/Ravis_portfolio/og-v2.png" />
+    <meta property="og:image:alt" content="Raviteja Seguri — Full Stack Developer. Web, mobile and AI-assisted development." />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta name="twitter:image:alt" content="Raviteja Seguri — Full Stack Developer. Web, mobile and AI-assisted development." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Raviteja Seguri — Full Stack Developer" />
     <meta
       name="twitter:description"
       content="Full Stack Developer at Workelate, Hyderabad. Building Citysense with React, Node.js and MongoDB."
     />
-    <meta name="twitter:image" content="https://raviteja5469.github.io/Ravis_portfolio/og.png" />
+    <meta name="twitter:image" content="https://raviteja5469.github.io/Ravis_portfolio/og-v2.png" />
 
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Raviteja Seguri",
-        "jobTitle": "Full Stack Developer",
-        "worksFor": { "@type": "Organization", "name": "Workelate" },
-        "address": { "@type": "PostalAddress", "addressLocality": "Hyderabad", "addressCountry": "IN" },
-        "email": "mailto:ravitejaseguri@gmail.com",
-        "url": "https://raviteja5469.github.io/Ravis_portfolio/",
-        "sameAs": ["https://github.com/Raviteja5469", "https://www.linkedin.com/in/seguri-raviteja"]
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://raviteja5469.github.io/Ravis_portfolio/#website",
+      "url": "https://raviteja5469.github.io/Ravis_portfolio/",
+      "name": "Raviteja Seguri \u2014 Portfolio",
+      "inLanguage": "en",
+      "publisher": {
+        "@id": "https://raviteja5469.github.io/Ravis_portfolio/#person"
       }
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://raviteja5469.github.io/Ravis_portfolio/#profile",
+      "url": "https://raviteja5469.github.io/Ravis_portfolio/",
+      "name": "Raviteja Seguri \u2014 Full Stack Developer",
+      "isPartOf": {
+        "@id": "https://raviteja5469.github.io/Ravis_portfolio/#website"
+      },
+      "mainEntity": {
+        "@id": "https://raviteja5469.github.io/Ravis_portfolio/#person"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://raviteja5469.github.io/Ravis_portfolio/#person",
+      "name": "Raviteja Seguri",
+      "jobTitle": "Full Stack Developer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Workelate"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Hyderabad",
+        "addressCountry": "IN"
+      },
+      "email": "mailto:ravitejaseguri@gmail.com",
+      "url": "https://raviteja5469.github.io/Ravis_portfolio/",
+      "sameAs": [
+        "https://github.com/Raviteja5469",
+        "https://www.linkedin.com/in/seguri-raviteja"
+      ],
+      "knowsAbout": [
+        "React",
+        "Node.js",
+        "MongoDB",
+        "TypeScript",
+        "React Native",
+        "Full stack development",
+        "AI-assisted development"
+      ]
+    }
+  ]
+}
     </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -61,11 +116,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <noscript>
-      <p style="font-family: system-ui; padding: 2rem">
-        Raviteja Seguri, Full Stack Developer. Email ravitejaseguri@gmail.com.
-      </p>
-    </noscript>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

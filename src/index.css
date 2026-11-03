@@ -236,3 +236,12 @@
   .journey-slide .project-artwork--phone { height: 100%; display: flex; flex-direction: column; align-items: center; }
   .journey-slide .project-artwork--phone img { height: calc(100% - 28px); max-height: calc(100% - 28px); width: auto; max-width: 100%; }
 }
+
+/* The production page remains readable before JavaScript or without it. */
+html:not(.js) .reveal,
+html:not(.js) .journey-copy { opacity: 1; transform: none; }
+html:not(.js) .animate-rise { animation: none; }
+html:not(.js) #projects .lg\:hidden { display: block; }
+html:not(.js) #projects .hidden.lg\:block { display: none; }
+html:not(.js) .disclosure > button { display: none; }
+html:not(.js) .disclosure > div { visibility: visible; opacity: 1; grid-template-rows: 1fr; }

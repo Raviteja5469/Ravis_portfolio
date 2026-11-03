@@ -11,7 +11,7 @@ const Disclosure = ({ label, children }: DisclosureProps) => {
   const panelId = useId();
 
   return (
-    <div className="mt-8">
+    <div className="disclosure mt-8">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
