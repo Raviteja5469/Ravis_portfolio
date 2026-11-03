@@ -1,51 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import { useCallback, useState } from 'react';
+import PortfolioIntro from './components/PortfolioIntro';
 import Navigation from './components/Navigation';
-// import CustomCursor from './components/CustomCursor';
-import Preloader from './components/Preloader';
 import Hero from './components/sections/Hero';
-import Stats from './components/sections/Stats';
-import About from './components/sections/About';
-import Skills from './components/sections/Skills';
-import Projects from './components/sections/Projects';
-import Blog from './components/sections/Blog';
 import Experience from './components/sections/Experience';
-// import Testimonials from './components/sections/Testimonials';
+import Projects from './components/sections/Projects';
+import Skills from './components/sections/Skills';
+import About from './components/sections/About';
 import Contact from './components/sections/Contact';
 import Footer from './components/sections/Footer';
-import { ThemeProvider } from './contexts/ThemeContext';
 
 function App() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate loading time
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-
-    return () => clearTimeout(timer);
+  const [intro, setIntro] = useState(true);
+  const completeIntro = useCallback(() => {
+    setIntro(false);
+    requestAnimationFrame(() => document.getElementById('main')?.focus({ preventScroll: true }));
   }, []);
-
   return (
-    <ThemeProvider>
-      <div className="min-h-screen font-inter">
-        {loading && <Preloader />}
-        {/* <CustomCursor /> */}
-        <Navigation />
-        <main>
-          <Hero />
-          <About /> 
-          <Skills />
-          <Projects />
-          <Stats />
-          <Experience />
-          <Blog />
-          {/* <Testimonials /> */}
-          <Contact />
-        </main>
-        <Footer />
+    <>
+      {intro && <PortfolioIntro onComplete={completeIntro} />}
+      <div className={intro ? 'portfolio-content intro-pending' : 'portfolio-content'} ref={(node) => { if (node) node.inert = intro; }} aria-hidden={intro || undefined}>
+      <Navigation />
+      <main id="main" tabIndex={-1}>
+        <Hero />
+        <Experience />
+        <Projects />
+        <Skills />
+        <About />
+        <Contact />
+      </main>
+      <Footer />
       </div>
-    </ThemeProvider>
+    </>
   );
 }
 

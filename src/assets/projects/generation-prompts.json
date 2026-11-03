@@ -1,0 +1,7 @@
+{
+  "tool": "Built-in image_gen",
+  "prompts": {
+    "lifeease": "Use case: stylized-concept. Asset type: portfolio project editorial artwork, landscape 3:2. Create a refined tactile 3D illustration for Lifeease, an accessibility app connecting voice, gesture and text. A sculpted white hand making a friendly open gesture, a small cobalt blue microphone and orange speech tile with raised three dots, arranged as one beautiful balanced still life. White matte background, soft realistic contact shadows, porcelain and satin materials, restrained cobalt and burnt orange. Large central subjects, ample breathing room, clear at thumbnail scale. No text, no gradients, no interface screenshots, no logos, no decorative confetti.",
+    "animal": "Use case: stylized-concept. Asset type: portfolio project editorial artwork, landscape 3:2. Create a refined tactile 3D illustration for an animal species image classifier. Three small sculptural animal busts: fox, elephant, and cat, arranged in a balanced row with the fox slightly forward; a slender cobalt square scanning frame surrounds the fox. Ivory ceramic animals with the fox in warm orange, white matte background, soft realistic contact shadows, carefully crafted satin surfaces, sophisticated editorial product photography. Large central subjects with breathing room, clear at thumbnail scale. No text, no gradients, no fake charts or accuracy values, no logos."
+  }
+}

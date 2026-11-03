@@ -1,164 +1,157 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Moon, Sun } from 'lucide-react';
-import { useTheme } from '../contexts/ThemeContext';
+import { useEffect, useRef, useState } from 'react';
+import { Menu, X, Download, Sun, Moon } from 'lucide-react';
+import { useActiveSection } from '../hooks/useActiveSection';
+import { useTheme } from '../hooks/useTheme';
+import { navSections } from '../data/content';
+import resumePdf from '../assets/Raviteja_resume.pdf';
 
-const Navigation: React.FC = () => {
-  const [activeSection, setActiveSection] = useState('hero');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const sectionIds = navSections.map((s) => s.id);
+
+const ScrollProgress = () => {
+  const bar = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? window.scrollY / max : 0;
+      if (bar.current) bar.current.style.transform = `scaleX(${progress})`;
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+  return (
+    <div ref={bar} aria-hidden="true" className="fixed inset-x-0 top-0 z-[60] h-[2px] origin-left scale-x-0 bg-primary" />
+  );
+};
+
+const Navigation = () => {
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const active = useActiveSection(sectionIds);
   const { isDark, toggleTheme } = useTheme();
 
-  const sections = [
-    { id: 'hero', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'stats', label: 'Stats' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'blog', label: 'Blog' },
-    // { id: 'testimonials', label: 'Testimonials' },
-    { id: 'contact', label: 'Contact' }
-  ];
-
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = document.querySelectorAll('section[id]');
-      const scrollPos = window.scrollY + 100;
-
-      sections.forEach((section) => {
-        const element = section as HTMLElement;
-        const top = element.offsetTop;
-        const height = element.offsetHeight;
-
-        if (scrollPos >= top && scrollPos < top + height) {
-          setActiveSection(element.id);
-        }
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMenuOpen(false);
-    }
-  };
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    const onResize = () => window.innerWidth >= 768 && setOpen(false);
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('resize', onResize);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('resize', onResize);
+    };
+  }, [open]);
+
+  const roundBtn =
+    'inline-flex h-10 w-10 items-center justify-center rounded-full text-soft transition-colors hover:bg-ink/[0.06] hover:text-ink';
 
   return (
     <>
-      {/* Desktop Navigation */}
-      <nav className="fixed left-4 top-1/2 transform -translate-y-1/2 z-50 hidden lg:block">
-        <div className={`glass-dark rounded-full p-4 space-y-4 ${
-          isDark ? 'bg-black/30' : 'bg-white/30'
-        }`}>
-          {sections.map((section) => (
-            <button
-              key={section.id}
-              onClick={() => scrollToSection(section.id)}
-              className={`w-4 h-4 rounded-full border-2 transition-all duration-300 block group relative ${
-                activeSection === section.id
-                  ? 'bg-neon-cyan border-neon-cyan shadow-[0_0_20px_rgba(0,255,255,0.5)]'
-                  : isDark 
-                    ? 'border-white/30 hover:border-neon-cyan'
-                    : 'border-gray-400 hover:border-cosmic-indigo'
-              }`}
-              aria-label={`Navigate to ${section.label}`}
-            >
-              <span className={`absolute left-8 top-1/2 transform -translate-y-1/2 px-3 py-1 rounded-md text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none ${
-                isDark
-                  ? 'bg-black/80 text-white'
-                  : 'bg-white/80 text-gray-900'
-              }`}>
-                {section.label}
-              </span>
-            </button>
-          ))}
-        </div>
-      </nav>
+      <ScrollProgress />
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-canvas"
+      >
+        Skip to content
+      </a>
+      <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
+        <div
+          className={`mx-auto flex h-14 w-full max-w-3xl items-center justify-between gap-3 rounded-full border px-3 md:w-fit md:justify-start md:gap-5 transition-all duration-500 ${
+            scrolled || open
+              ? 'border-line bg-surface/75 shadow-[0_10px_40px_-12px_rgba(0,0,0,0.35)] backdrop-blur-xl'
+              : 'border-transparent bg-transparent'
+          }`}
+        >
+          <a href="#top" className="grid h-10 w-10 shrink-0 place-items-center rounded-full" aria-label="Raviteja Seguri, back to top">
+            <span className="brand-monogram inline-block leading-none" aria-hidden="true">rs<span>.</span></span>
+          </a>
 
-      {/* Mobile Navigation */}
-      <nav className={`fixed top-0 left-0 w-full z-50 lg:hidden ${
-        isDark ? 'bg-cosmic-dark/80' : 'bg-white/80'
-      } backdrop-blur-md`}>
-        <div className="flex items-center justify-between p-4">
-          <div className="text-xl font-bold font-mono">
-            <span className="text-neon-cyan">RT</span>
-          </div>
-          
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={toggleTheme}
-              className={`p-2 rounded-full transition-all duration-300 ${
-                isDark
-                  ? 'text-neon-cyan hover:bg-neon-cyan/20'
-                  : 'text-cosmic-indigo hover:bg-cosmic-indigo/20'
-              }`}
-              aria-label="Toggle theme"
-            >
-              {isDark ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-            
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`p-2 rounded-full transition-all duration-300 ${
-                isDark
-                  ? 'text-neon-cyan hover:bg-neon-cyan/20'
-                  : 'text-cosmic-indigo hover:bg-cosmic-indigo/20'
-              }`}
-              aria-label="Toggle menu"
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        <div className={`absolute top-full left-0 w-full transition-all duration-300 ${
-          isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-        } ${isDark ? 'bg-cosmic-dark/95' : 'bg-white/95'} backdrop-blur-md`}>
-          <div className="p-4 space-y-2">
-            {sections.map((section) => (
-              <button
-                key={section.id}
-                onClick={() => scrollToSection(section.id)}
-                className={`w-full text-left py-3 px-4 rounded-lg transition-all duration-300 ${
-                  activeSection === section.id
-                    ? isDark
-                      ? 'bg-neon-cyan/20 text-neon-cyan'
-                      : 'bg-cosmic-indigo/20 text-cosmic-indigo'
-                    : isDark
-                      ? 'hover:bg-white/10 text-white'
-                      : 'hover:bg-gray-100 text-gray-900'
+          <nav className="hidden items-center md:flex" aria-label="Primary">
+            {navSections.map((s) => (
+              <a
+                key={s.id}
+                href={`#${s.id}`}
+                aria-current={active === s.id ? 'location' : undefined}
+                className={`rounded-full px-3.5 py-2 text-sm transition-colors duration-300 ${
+                  active === s.id ? 'bg-primary/10 text-primary' : 'text-soft hover:text-ink'
                 }`}
               >
-                {section.label}
-              </button>
+                {s.label}
+              </a>
             ))}
+          </nav>
+
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className={roundBtn}
+              aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+            >
+              {isDark ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
+            </button>
+            <a href={resumePdf} download="Raviteja-Seguri-Resume.pdf" className="btn-ink ml-1 hidden h-10 px-4 sm:inline-flex">
+              <Download size={15} aria-hidden="true" />
+              Resume
+            </a>
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              className={`${roundBtn} md:hidden`}
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+            >
+              {open ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
+            </button>
           </div>
         </div>
-      </nav>
 
-      {/* Desktop Theme Toggle */}
-      <button
-        onClick={toggleTheme}
-        className={`fixed top-4 right-4 z-50 hidden lg:flex items-center justify-center w-12 h-12 rounded-full transition-all duration-500 ${
-          isDark
-            ? 'bg-yellow-400 text-cosmic-dark hover:bg-yellow-300'
-            : 'bg-cosmic-midnight text-white hover:bg-cosmic-blue'
-        } shadow-lg hover:scale-110`}
-        aria-label="Toggle theme"
-      >
-        <div className="relative">
-          {isDark ? (
-            <Sun size={20} className="animate-pulse" />
-          ) : (
-            <Moon size={20} className="animate-pulse" />
-          )}
-        </div>
-      </button>
+        {open && (
+          <nav
+            id="mobile-menu"
+            aria-label="Mobile"
+            className="mx-auto mt-2 max-w-3xl animate-rise rounded-3xl border border-line bg-surface/95 p-3 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.45)] backdrop-blur-xl [animation-duration:0.35s] md:hidden"
+          >
+            <ul>
+              {navSections.map((s) => (
+                <li key={s.id}>
+                  <a
+                    href={`#${s.id}`}
+                    onClick={() => setOpen(false)}
+                    className={`block rounded-2xl px-4 py-3 text-base transition-colors ${
+                      active === s.id ? 'bg-primary/10 text-primary' : 'text-soft hover:text-ink'
+                    }`}
+                  >
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a href={resumePdf} download="Raviteja-Seguri-Resume.pdf" className="btn-ink mt-2 w-full">
+              <Download size={15} aria-hidden="true" />
+              Download resume
+            </a>
+          </nav>
+        )}
+      </header>
     </>
   );
 };

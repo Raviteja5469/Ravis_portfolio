@@ -1,37 +1,71 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Charset & Viewport -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Start in light mode; respect theme choices made with the current palette.
+      (function () {
+        try {
+          var saved = localStorage.getItem('portfolio-theme-v2');
+          var dark = saved === 'dark'; // light by default
+          document.documentElement.classList.toggle('dark', dark);
+        } catch (e) {}
+      })();
+    </script>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png+xml"  href="./src/assets/image.png" />
+    <title>Raviteja Seguri — Full Stack Developer</title>
+    <meta
+      name="description"
+      content="Raviteja Seguri is a Full Stack Developer at Workelate in Hyderabad, building the Citysense digital out-of-home platform with React, Node.js and MongoDB. Work, projects and resume."
+    />
+    <meta name="author" content="Raviteja Seguri" />
+    <meta name="theme-color" content="#fafafa" />
+    <link rel="canonical" href="https://raviteja5469.github.io/Ravis_portfolio/" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
 
-    <!-- Title & Description -->
-    <title>Ravi Teja | Full-Stack Web Developer & MERN Specialist</title>
-    <meta name="description" content="Ravi Teja, a passionate full-stack developer specializing in MERN stack, React, and scalable web solutions. Explore my projects & skills." />
-
-    <!-- Open Graph / Facebook / LinkedIn -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://yourportfolio.com/" />
-    <meta property="og:title" content="Ravi Teja | Full-Stack Web Developer & MERN Specialist" />
-    <meta property="og:description" content="Explore Ravi Teja's portfolio — Full-Stack developer, AI enthusiast, and cybersecurity explorer." />
-    <meta property="og:image" content="https://yourportfolio.com/assets/preview_img.png" />
-
-    <!-- Twitter -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:url" content="https://raviteja5469.github.io/Ravis_portfolio/" />
+    <meta property="og:title" content="Raviteja Seguri — Full Stack Developer" />
+    <meta
+      property="og:description"
+      content="Full Stack Developer at Workelate, Hyderabad. Building Citysense with React, Node.js and MongoDB, plus React Native and Python."
+    />
+    <meta property="og:image" content="https://raviteja5469.github.io/Ravis_portfolio/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://yourportfolio.com/" />
-    <meta name="twitter:title" content="Ravi Teja | Full-Stack Web Developer & MERN Specialist" />
-    <meta name="twitter:description" content="Explore Ravi Teja's portfolio — Full-Stack developer, AI enthusiast, and cybersecurity explorer." />
-    <meta name="twitter:image" content="https://yourportfolio.com/assets/preview_img.png" />
+    <meta name="twitter:title" content="Raviteja Seguri — Full Stack Developer" />
+    <meta
+      name="twitter:description"
+      content="Full Stack Developer at Workelate, Hyderabad. Building Citysense with React, Node.js and MongoDB."
+    />
+    <meta name="twitter:image" content="https://raviteja5469.github.io/Ravis_portfolio/og.png" />
 
-    <!-- Fonts -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Raviteja Seguri",
+        "jobTitle": "Full Stack Developer",
+        "worksFor": { "@type": "Organization", "name": "Workelate" },
+        "address": { "@type": "PostalAddress", "addressLocality": "Hyderabad", "addressCountry": "IN" },
+        "email": "mailto:ravitejaseguri@gmail.com",
+        "url": "https://raviteja5469.github.io/Ravis_portfolio/",
+        "sameAs": ["https://github.com/Raviteja5469", "https://www.linkedin.com/in/seguri-raviteja"]
+      }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <noscript>
+      <p style="font-family: system-ui; padding: 2rem">
+        Raviteja Seguri, Full Stack Developer. Email ravitejaseguri@gmail.com.
+      </p>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
